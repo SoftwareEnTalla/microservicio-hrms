@@ -29,7 +29,6 @@
  */
 
 
-import { CodetraceModule } from "@modules/codetrace/modules/codetrace.module";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { logger } from '@core/logs/logger';
 
@@ -72,7 +71,7 @@ try{
         .build();
 
       const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig, {
-        include: [CodetraceModule /*, AuthModule, ReportsModule*/], // Lista todos los módulos
+        include: [/* register modules here */], // Lista todos los módulos
         deepScanRoutes: true, // Escanea en profundidad
         ignoreGlobalPrefix: false, // Considera el prefijo global (api/)
         extraModels: [], // Añade esto
