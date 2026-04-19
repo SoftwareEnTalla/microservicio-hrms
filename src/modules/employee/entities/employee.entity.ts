@@ -112,13 +112,35 @@ export class Employee extends BaseEntity {
   @ApiProperty({
     type: () => String,
     nullable: true,
-    description: 'Departamento',
+    description: 'Departamento (legacy, preferir organizationUnitCode)',
   })
   @IsString()
   @IsOptional()
-  @Field(() => String, { description: 'Departamento', nullable: true })
-  @Column({ type: 'varchar', nullable: true, length: 40, comment: 'Departamento' })
+  @Field(() => String, { description: 'Departamento (legacy, preferir organizationUnitCode)', nullable: true })
+  @Column({ type: 'varchar', nullable: true, length: 40, comment: 'Departamento (legacy, preferir organizationUnitCode)' })
   departmentCode?: string = '';
+
+  @ApiProperty({
+    type: () => String,
+    nullable: true,
+    description: 'Código del nodo organizativo asignado (organization-service)',
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, { description: 'Código del nodo organizativo asignado (organization-service)', nullable: true })
+  @Column({ type: 'varchar', nullable: true, length: 120, comment: 'Código del nodo organizativo asignado (organization-service)' })
+  organizationUnitCode?: string = '';
+
+  @ApiProperty({
+    type: () => String,
+    nullable: true,
+    description: 'Path materializado del nodo organizativo (cache)',
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, { description: 'Path materializado del nodo organizativo (cache)', nullable: true })
+  @Column({ type: 'varchar', nullable: true, length: 500, comment: 'Path materializado del nodo organizativo (cache)' })
+  organizationUnitPath?: string = '';
 
   @ApiProperty({
     type: () => String,

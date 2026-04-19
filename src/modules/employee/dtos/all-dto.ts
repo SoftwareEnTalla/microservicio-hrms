@@ -151,12 +151,32 @@ export class BaseEmployeeDto {
   @ApiProperty({
     type: () => String,
     nullable: true,
-    description: 'Departamento',
+    description: 'Departamento (legacy, preferir organizationUnitCode)',
   })
   @IsString()
   @IsOptional()
-  @Field(() => String, { description: 'Departamento', nullable: true })
+  @Field(() => String, { description: 'Departamento (legacy, preferir organizationUnitCode)', nullable: true })
   departmentCode?: string = '';
+
+  @ApiProperty({
+    type: () => String,
+    nullable: true,
+    description: 'Código del nodo organizativo asignado (organization-service)',
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, { description: 'Código del nodo organizativo asignado (organization-service)', nullable: true })
+  organizationUnitCode?: string = '';
+
+  @ApiProperty({
+    type: () => String,
+    nullable: true,
+    description: 'Path materializado del nodo organizativo (cache)',
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, { description: 'Path materializado del nodo organizativo (cache)', nullable: true })
+  organizationUnitPath?: string = '';
 
   @ApiProperty({
     type: () => String,

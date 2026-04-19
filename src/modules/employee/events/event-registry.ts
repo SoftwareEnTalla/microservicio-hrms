@@ -91,6 +91,21 @@ const EVENT_DEFINITION_OVERRIDES: Partial<Record<string, Partial<Omit<Registered
     maxRetries: 5,
     replayable: true,
   },
+  'employee-assigned-to-org-node': {
+    version: '1.0.0',
+    maxRetries: 5,
+    replayable: true,
+  },
+  'employee-removed-from-org-node': {
+    version: '1.0.0',
+    maxRetries: 5,
+    replayable: true,
+  },
+  'employee-transferred-org-node': {
+    version: '1.0.0',
+    maxRetries: 5,
+    replayable: true,
+  },
 };
 
 export const EVENT_DEFINITIONS: Record<string, RegisteredEventDefinition> = {
