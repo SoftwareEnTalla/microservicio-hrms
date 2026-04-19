@@ -81,6 +81,21 @@ const EVENT_DEFINITION_OVERRIDES: Partial<Record<string, Partial<Omit<Registered
     maxRetries: 5,
     replayable: true,
   },
+  'access-credential-expired': {
+    version: '1.0.0',
+    maxRetries: 3,
+    replayable: false,
+  },
+  'access-credential-timeout': {
+    version: '1.0.0',
+    maxRetries: 3,
+    replayable: false,
+  },
+  'access-credential-locked': {
+    version: '1.0.0',
+    maxRetries: 3,
+    replayable: false,
+  },
   'access-event-recorded': {
     version: '1.0.0',
     maxRetries: 5,

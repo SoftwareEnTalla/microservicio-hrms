@@ -167,13 +167,112 @@ export class AccessControl extends BaseEntity {
   @ApiProperty({
     type: () => Object,
     nullable: true,
-    description: 'Zonas autorizadas',
+    description: 'Zonas autorizadas (códigos)',
   })
   @IsObject()
   @IsOptional()
-  @Field(() => GraphQLJSON, { description: 'Zonas autorizadas', nullable: true })
-  @Column({ type: 'json', nullable: true, comment: 'Zonas autorizadas' })
+  @Field(() => GraphQLJSON, { description: 'Zonas autorizadas (códigos)', nullable: true })
+  @Column({ type: 'json', nullable: true, comment: 'Zonas autorizadas (códigos)' })
   zoneCodes?: Record<string, any> = {};
+
+  @ApiProperty({
+    type: () => String,
+    nullable: false,
+    description: 'Nivel de acceso requerido por la zona',
+  })
+  @IsString()
+  @IsNotEmpty()
+  @Field(() => String, { description: 'Nivel de acceso requerido por la zona', nullable: false })
+  @Column({ type: 'varchar', nullable: false, length: 255, default: 'LOW', comment: 'Nivel de acceso requerido por la zona' })
+  accessLevel!: string;
+
+  @ApiProperty({
+    type: () => String,
+    nullable: true,
+    description: 'Rol del empleado al momento de emisión (cacheado)',
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, { description: 'Rol del empleado al momento de emisión (cacheado)', nullable: true })
+  @Column({ type: 'varchar', nullable: true, length: 80, comment: 'Rol del empleado al momento de emisión (cacheado)' })
+  roleCode?: string = '';
+
+  @ApiProperty({
+    type: () => String,
+    nullable: true,
+    description: 'Expresión cron o rangos horarios permitidos (p.ej. MON-FRI 08:00-18:00)',
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, { description: 'Expresión cron o rangos horarios permitidos (p.ej. MON-FRI 08:00-18:00)', nullable: true })
+  @Column({ type: 'varchar', nullable: true, length: 120, comment: 'Expresión cron o rangos horarios permitidos (p.ej. MON-FRI 08:00-18:00)' })
+  allowedScheduleCron?: string = '';
+
+  @ApiProperty({
+    type: () => String,
+    nullable: true,
+    description: 'Zona horaria de la política',
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, { description: 'Zona horaria de la política', nullable: true })
+  @Column({ type: 'varchar', nullable: true, length: 60, comment: 'Zona horaria de la política' })
+  allowedTimezone?: string = '';
+
+  @ApiProperty({
+    type: () => Number,
+    nullable: false,
+    description: 'Máximo intentos fallidos antes de bloquear (aplica a PIN/BIOMETRIC)',
+  })
+  @IsInt()
+  @IsNotEmpty()
+  @Field(() => Int, { description: 'Máximo intentos fallidos antes de bloquear (aplica a PIN/BIOMETRIC)', nullable: false })
+  @Column({ type: 'int', nullable: false, default: 5, comment: 'Máximo intentos fallidos antes de bloquear (aplica a PIN/BIOMETRIC)' })
+  maxFailedAttempts!: number;
+
+  @ApiProperty({
+    type: () => Number,
+    nullable: false,
+    description: 'Contador acumulado de intentos fallidos',
+  })
+  @IsInt()
+  @IsNotEmpty()
+  @Field(() => Int, { description: 'Contador acumulado de intentos fallidos', nullable: false })
+  @Column({ type: 'int', nullable: false, default: 0, comment: 'Contador acumulado de intentos fallidos' })
+  failedAttemptsCount!: number;
+
+  @ApiProperty({
+    type: () => Date,
+    nullable: true,
+    description: 'Bloqueo temporal tras exceder intentos',
+  })
+  @IsDate()
+  @IsOptional()
+  @Field(() => Date, { description: 'Bloqueo temporal tras exceder intentos', nullable: true })
+  @Column({ type: 'timestamp', nullable: true, comment: 'Bloqueo temporal tras exceder intentos' })
+  lockedUntil?: Date = new Date();
+
+  @ApiProperty({
+    type: () => Date,
+    nullable: true,
+    description: 'Último acceso exitoso',
+  })
+  @IsDate()
+  @IsOptional()
+  @Field(() => Date, { description: 'Último acceso exitoso', nullable: true })
+  @Column({ type: 'timestamp', nullable: true, comment: 'Último acceso exitoso' })
+  lastAccessAt?: Date = new Date();
+
+  @ApiProperty({
+    type: () => String,
+    nullable: true,
+    description: 'Último resultado',
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, { description: 'Último resultado', nullable: true })
+  @Column({ type: 'varchar', nullable: true, length: 255, comment: 'Último resultado' })
+  lastAccessOutcome?: string = '';
 
   @ApiProperty({
     type: () => Object,

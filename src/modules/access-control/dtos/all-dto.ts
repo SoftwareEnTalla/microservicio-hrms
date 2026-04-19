@@ -201,12 +201,102 @@ export class BaseAccessControlDto {
   @ApiProperty({
     type: () => Object,
     nullable: true,
-    description: 'Zonas autorizadas',
+    description: 'Zonas autorizadas (códigos)',
   })
   @IsObject()
   @IsOptional()
-  @Field(() => GraphQLJSON, { description: 'Zonas autorizadas', nullable: true })
+  @Field(() => GraphQLJSON, { description: 'Zonas autorizadas (códigos)', nullable: true })
   zoneCodes?: Record<string, any> = {};
+
+  @ApiProperty({
+    type: () => String,
+    nullable: false,
+    description: 'Nivel de acceso requerido por la zona',
+  })
+  @IsString()
+  @IsNotEmpty()
+  @Field(() => String, { description: 'Nivel de acceso requerido por la zona', nullable: false })
+  accessLevel!: string;
+
+  @ApiProperty({
+    type: () => String,
+    nullable: true,
+    description: 'Rol del empleado al momento de emisión (cacheado)',
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, { description: 'Rol del empleado al momento de emisión (cacheado)', nullable: true })
+  roleCode?: string = '';
+
+  @ApiProperty({
+    type: () => String,
+    nullable: true,
+    description: 'Expresión cron o rangos horarios permitidos (p.ej. MON-FRI 08:00-18:00)',
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, { description: 'Expresión cron o rangos horarios permitidos (p.ej. MON-FRI 08:00-18:00)', nullable: true })
+  allowedScheduleCron?: string = '';
+
+  @ApiProperty({
+    type: () => String,
+    nullable: true,
+    description: 'Zona horaria de la política',
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, { description: 'Zona horaria de la política', nullable: true })
+  allowedTimezone?: string = '';
+
+  @ApiProperty({
+    type: () => Number,
+    nullable: false,
+    description: 'Máximo intentos fallidos antes de bloquear (aplica a PIN/BIOMETRIC)',
+  })
+  @IsInt()
+  @IsNotEmpty()
+  @Field(() => Int, { description: 'Máximo intentos fallidos antes de bloquear (aplica a PIN/BIOMETRIC)', nullable: false })
+  maxFailedAttempts!: number;
+
+  @ApiProperty({
+    type: () => Number,
+    nullable: false,
+    description: 'Contador acumulado de intentos fallidos',
+  })
+  @IsInt()
+  @IsNotEmpty()
+  @Field(() => Int, { description: 'Contador acumulado de intentos fallidos', nullable: false })
+  failedAttemptsCount!: number;
+
+  @ApiProperty({
+    type: () => Date,
+    nullable: true,
+    description: 'Bloqueo temporal tras exceder intentos',
+  })
+  @IsDate()
+  @IsOptional()
+  @Field(() => Date, { description: 'Bloqueo temporal tras exceder intentos', nullable: true })
+  lockedUntil?: Date = new Date();
+
+  @ApiProperty({
+    type: () => Date,
+    nullable: true,
+    description: 'Último acceso exitoso',
+  })
+  @IsDate()
+  @IsOptional()
+  @Field(() => Date, { description: 'Último acceso exitoso', nullable: true })
+  lastAccessAt?: Date = new Date();
+
+  @ApiProperty({
+    type: () => String,
+    nullable: true,
+    description: 'Último resultado',
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, { description: 'Último resultado', nullable: true })
+  lastAccessOutcome?: string = '';
 
   @ApiProperty({
     type: () => Object,
