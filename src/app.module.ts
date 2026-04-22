@@ -54,6 +54,9 @@ import { AccessControlQueryService } from "./modules/access-control/services/acc
 import { AttendanceModule } from "./modules/attendance/modules/attendance.module";
 import { AttendanceCommandService } from "./modules/attendance/services/attendancecommand.service";
 import { AttendanceQueryService } from "./modules/attendance/services/attendancequery.service";
+import { CatalogSyncLogModule } from "./modules/catalog-sync-log/modules/catalogsynclog.module";
+import { CatalogSyncLogCommandService } from "./modules/catalog-sync-log/services/catalogsynclogcommand.service";
+import { CatalogSyncLogQueryService } from "./modules/catalog-sync-log/services/catalogsynclogquery.service";
 import { ConfigurationParameterModule } from "./modules/configuration-parameter/modules/configurationparameter.module";
 import { ConfigurationParameterCommandService } from "./modules/configuration-parameter/services/configurationparametercommand.service";
 import { ConfigurationParameterQueryService } from "./modules/configuration-parameter/services/configurationparameterquery.service";
@@ -149,6 +152,7 @@ import LoggerService, { logger } from "@core/logs/logger";
     HrmsModule,
         AccessControlModule,
     AttendanceModule,
+    CatalogSyncLogModule,
     ConfigurationParameterModule,
     EmployeeAttributeModule,
     EmployeeModule,
@@ -248,6 +252,8 @@ export class HrmsAppModule implements OnModuleInit {
       AccessControlQueryService,
       AttendanceCommandService,
       AttendanceQueryService,
+      CatalogSyncLogCommandService,
+      CatalogSyncLogQueryService,
       ConfigurationParameterCommandService,
       ConfigurationParameterQueryService,
       EmployeeAttributeCommandService,
