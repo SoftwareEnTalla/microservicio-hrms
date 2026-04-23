@@ -51,7 +51,11 @@ import { KafkaEventPublisher } from "../shared/adapters/kafka-event-publisher";
 import { ModuleRef } from "@nestjs/core";
 import { TrainingQueryService } from "./trainingquery.service";
 import { BaseEvent } from "../events/base.event";
-
+import { CourseCreatedEvent } from '../events/coursecreated.event';
+import { CourseSessionScheduledEvent } from '../events/coursesessionscheduled.event';
+import { EnrollmentConfirmedEvent } from '../events/enrollmentconfirmed.event';
+import { CertificationIssuedEvent } from '../events/certificationissued.event';
+import { CertificationExpiringSoonEvent } from '../events/certificationexpiringsoon.event';
 
 @Injectable()
 export class TrainingCommandService implements OnModuleInit {

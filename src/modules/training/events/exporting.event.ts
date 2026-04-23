@@ -30,7 +30,11 @@
 export * from "./trainingdeleted.event"; 
 export * from "./trainingcreated.event";
 export * from "./trainingupdated.event";
-
+export * from "./coursecreated.event";
+export * from "./coursesessionscheduled.event";
+export * from "./enrollmentconfirmed.event";
+export * from "./certificationissued.event";
+export * from "./certificationexpiringsoon.event";
 export * from "./event-registry";
 export * from "./base.event";
 export * from "./training-failed.event";

@@ -36,7 +36,11 @@ import {
   TrainingCreatedEvent,
   TrainingUpdatedEvent,
   TrainingDeletedEvent,
-
+  CourseCreatedEvent,
+  CourseSessionScheduledEvent,
+  EnrollmentConfirmedEvent,
+  CertificationIssuedEvent,
+  CertificationExpiringSoonEvent,
 } from '../events/exporting.event';
 import {
   SagaTrainingFailedEvent
@@ -100,6 +104,60 @@ export class TrainingCrudSaga {
     );
   };
 
+  @Saga()
+  onCourseCreated = ($events: Observable<CourseCreatedEvent>) => {
+    return $events.pipe(
+      ofType(CourseCreatedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio CourseCreated: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onCourseSessionScheduled = ($events: Observable<CourseSessionScheduledEvent>) => {
+    return $events.pipe(
+      ofType(CourseSessionScheduledEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio CourseSessionScheduled: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onEnrollmentConfirmed = ($events: Observable<EnrollmentConfirmedEvent>) => {
+    return $events.pipe(
+      ofType(EnrollmentConfirmedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio EnrollmentConfirmed: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onCertificationIssued = ($events: Observable<CertificationIssuedEvent>) => {
+    return $events.pipe(
+      ofType(CertificationIssuedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio CertificationIssued: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onCertificationExpiringSoon = ($events: Observable<CertificationExpiringSoonEvent>) => {
+    return $events.pipe(
+      ofType(CertificationExpiringSoonEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio CertificationExpiringSoon: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
 
   @LogExecutionTime({
     layer: 'saga',

@@ -33,6 +33,11 @@ import { BaseEvent } from './base.event';
 import { TrainingCreatedEvent } from './trainingcreated.event';
 import { TrainingUpdatedEvent } from './trainingupdated.event';
 import { TrainingDeletedEvent } from './trainingdeleted.event';
+import { CourseCreatedEvent } from './coursecreated.event';
+import { CourseSessionScheduledEvent } from './coursesessionscheduled.event';
+import { EnrollmentConfirmedEvent } from './enrollmentconfirmed.event';
+import { CertificationIssuedEvent } from './certificationissued.event';
+import { CertificationExpiringSoonEvent } from './certificationexpiringsoon.event';
 
 export type RegisteredEventClass<T extends BaseEvent = BaseEvent> = new (
   aggregateId: string,
@@ -97,7 +102,11 @@ export const EVENT_DEFINITIONS: Record<string, RegisteredEventDefinition> = {
   'training-created': createEventDefinition('training-created', TrainingCreatedEvent, EVENT_DEFINITION_OVERRIDES['training-created']),
   'training-updated': createEventDefinition('training-updated', TrainingUpdatedEvent, EVENT_DEFINITION_OVERRIDES['training-updated']),
   'training-deleted': createEventDefinition('training-deleted', TrainingDeletedEvent, EVENT_DEFINITION_OVERRIDES['training-deleted']),
-
+  'course-created': createEventDefinition('course-created', CourseCreatedEvent, EVENT_DEFINITION_OVERRIDES['course-created']),
+  'course-session-scheduled': createEventDefinition('course-session-scheduled', CourseSessionScheduledEvent, EVENT_DEFINITION_OVERRIDES['course-session-scheduled']),
+  'enrollment-confirmed': createEventDefinition('enrollment-confirmed', EnrollmentConfirmedEvent, EVENT_DEFINITION_OVERRIDES['enrollment-confirmed']),
+  'certification-issued': createEventDefinition('certification-issued', CertificationIssuedEvent, EVENT_DEFINITION_OVERRIDES['certification-issued']),
+  'certification-expiring-soon': createEventDefinition('certification-expiring-soon', CertificationExpiringSoonEvent, EVENT_DEFINITION_OVERRIDES['certification-expiring-soon']),
 };
 
 export const EVENT_REGISTRY: Record<string, RegisteredEventClass> = Object.fromEntries(

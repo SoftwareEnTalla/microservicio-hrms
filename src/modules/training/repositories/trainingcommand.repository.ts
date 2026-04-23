@@ -53,7 +53,11 @@ import { IEventHandler, EventsHandler } from '@nestjs/cqrs';
 import { TrainingCreatedEvent } from '../events/trainingcreated.event';
 import { TrainingUpdatedEvent } from '../events/trainingupdated.event';
 import { TrainingDeletedEvent } from '../events/trainingdeleted.event';
-
+import { CourseCreatedEvent } from "../events/coursecreated.event";
+import { CourseSessionScheduledEvent } from "../events/coursesessionscheduled.event";
+import { EnrollmentConfirmedEvent } from "../events/enrollmentconfirmed.event";
+import { CertificationIssuedEvent } from "../events/certificationissued.event";
+import { CertificationExpiringSoonEvent } from "../events/certificationexpiringsoon.event";
 
 //Enfoque Event Sourcing
 import { CommandBus, EventBus } from '@nestjs/cqrs';
@@ -66,7 +70,7 @@ import { EventSourcingHelper } from '../shared/decorators/event-sourcing.helper'
 import { EventSourcingConfigOptions } from '../shared/decorators/event-sourcing.decorator';
 
 
-@EventsHandler(TrainingCreatedEvent, TrainingUpdatedEvent, TrainingDeletedEvent)
+@EventsHandler(TrainingCreatedEvent, TrainingUpdatedEvent, TrainingDeletedEvent, CourseCreatedEvent, CourseSessionScheduledEvent, EnrollmentConfirmedEvent, CertificationIssuedEvent, CertificationExpiringSoonEvent)
 @Injectable()
 export class TrainingCommandRepository implements IEventHandler<BaseEvent>{
 
@@ -158,7 +162,16 @@ export class TrainingCommandRepository implements IEventHandler<BaseEvent>{
         return await this.onTrainingUpdated(event);
       case 'TrainingDeletedEvent':
         return await this.onTrainingDeleted(event);
-
+      case 'CourseCreatedEvent':
+        return await this.onCourseCreated(event);
+      case 'CourseSessionScheduledEvent':
+        return await this.onCourseSessionScheduled(event);
+      case 'EnrollmentConfirmedEvent':
+        return await this.onEnrollmentConfirmed(event);
+      case 'CertificationIssuedEvent':
+        return await this.onCertificationIssued(event);
+      case 'CertificationExpiringSoonEvent':
+        return await this.onCertificationExpiringSoon(event);
     }
     return false;
   }
@@ -252,6 +265,75 @@ export class TrainingCommandRepository implements IEventHandler<BaseEvent>{
     return await this.repository.delete(event.aggregateId);
   }
 
+  private async onCourseCreated(event: CourseCreatedEvent) {
+    logger.info('Ready to handle onCourseCreated event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'training'
+      } as Partial<Training>);
+      return await this.repository.save(projectedEntity as Training);
+    }
+    return true;
+  }
+
+  private async onCourseSessionScheduled(event: CourseSessionScheduledEvent) {
+    logger.info('Ready to handle onCourseSessionScheduled event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'training'
+      } as Partial<Training>);
+      return await this.repository.save(projectedEntity as Training);
+    }
+    return true;
+  }
+
+  private async onEnrollmentConfirmed(event: EnrollmentConfirmedEvent) {
+    logger.info('Ready to handle onEnrollmentConfirmed event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'training'
+      } as Partial<Training>);
+      return await this.repository.save(projectedEntity as Training);
+    }
+    return true;
+  }
+
+  private async onCertificationIssued(event: CertificationIssuedEvent) {
+    logger.info('Ready to handle onCertificationIssued event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'training'
+      } as Partial<Training>);
+      return await this.repository.save(projectedEntity as Training);
+    }
+    return true;
+  }
+
+  private async onCertificationExpiringSoon(event: CertificationExpiringSoonEvent) {
+    logger.info('Ready to handle onCertificationExpiringSoon event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'training'
+      } as Partial<Training>);
+      return await this.repository.save(projectedEntity as Training);
+    }
+    return true;
+  }
 
 
   // ----------------------------
