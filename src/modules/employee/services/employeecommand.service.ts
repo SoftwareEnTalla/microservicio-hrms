@@ -51,7 +51,13 @@ import { KafkaEventPublisher } from "../shared/adapters/kafka-event-publisher";
 import { ModuleRef } from "@nestjs/core";
 import { EmployeeQueryService } from "./employeequery.service";
 import { BaseEvent } from "../events/base.event";
-
+import { EmployeeHiredEvent } from '../events/employeehired.event';
+import { EmployeeTransferredEvent } from '../events/employeetransferred.event';
+import { EmployeeSuspendedEvent } from '../events/employeesuspended.event';
+import { EmployeeTerminatedEvent } from '../events/employeeterminated.event';
+import { EmployeeAssignedToOrgNodeEvent } from '../events/employeeassignedtoorgnode.event';
+import { EmployeeRemovedFromOrgNodeEvent } from '../events/employeeremovedfromorgnode.event';
+import { EmployeeTransferredOrgNodeEvent } from '../events/employeetransferredorgnode.event';
 
 @Injectable()
 export class EmployeeCommandService implements OnModuleInit {

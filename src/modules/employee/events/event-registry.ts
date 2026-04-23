@@ -33,6 +33,13 @@ import { BaseEvent } from './base.event';
 import { EmployeeCreatedEvent } from './employeecreated.event';
 import { EmployeeUpdatedEvent } from './employeeupdated.event';
 import { EmployeeDeletedEvent } from './employeedeleted.event';
+import { EmployeeHiredEvent } from './employeehired.event';
+import { EmployeeTransferredEvent } from './employeetransferred.event';
+import { EmployeeSuspendedEvent } from './employeesuspended.event';
+import { EmployeeTerminatedEvent } from './employeeterminated.event';
+import { EmployeeAssignedToOrgNodeEvent } from './employeeassignedtoorgnode.event';
+import { EmployeeRemovedFromOrgNodeEvent } from './employeeremovedfromorgnode.event';
+import { EmployeeTransferredOrgNodeEvent } from './employeetransferredorgnode.event';
 
 export type RegisteredEventClass<T extends BaseEvent = BaseEvent> = new (
   aggregateId: string,
@@ -112,7 +119,13 @@ export const EVENT_DEFINITIONS: Record<string, RegisteredEventDefinition> = {
   'employee-created': createEventDefinition('employee-created', EmployeeCreatedEvent, EVENT_DEFINITION_OVERRIDES['employee-created']),
   'employee-updated': createEventDefinition('employee-updated', EmployeeUpdatedEvent, EVENT_DEFINITION_OVERRIDES['employee-updated']),
   'employee-deleted': createEventDefinition('employee-deleted', EmployeeDeletedEvent, EVENT_DEFINITION_OVERRIDES['employee-deleted']),
-
+  'employee-hired': createEventDefinition('employee-hired', EmployeeHiredEvent, EVENT_DEFINITION_OVERRIDES['employee-hired']),
+  'employee-transferred': createEventDefinition('employee-transferred', EmployeeTransferredEvent, EVENT_DEFINITION_OVERRIDES['employee-transferred']),
+  'employee-suspended': createEventDefinition('employee-suspended', EmployeeSuspendedEvent, EVENT_DEFINITION_OVERRIDES['employee-suspended']),
+  'employee-terminated': createEventDefinition('employee-terminated', EmployeeTerminatedEvent, EVENT_DEFINITION_OVERRIDES['employee-terminated']),
+  'employee-assigned-to-org-node': createEventDefinition('employee-assigned-to-org-node', EmployeeAssignedToOrgNodeEvent, EVENT_DEFINITION_OVERRIDES['employee-assigned-to-org-node']),
+  'employee-removed-from-org-node': createEventDefinition('employee-removed-from-org-node', EmployeeRemovedFromOrgNodeEvent, EVENT_DEFINITION_OVERRIDES['employee-removed-from-org-node']),
+  'employee-transferred-org-node': createEventDefinition('employee-transferred-org-node', EmployeeTransferredOrgNodeEvent, EVENT_DEFINITION_OVERRIDES['employee-transferred-org-node']),
 };
 
 export const EVENT_REGISTRY: Record<string, RegisteredEventClass> = Object.fromEntries(

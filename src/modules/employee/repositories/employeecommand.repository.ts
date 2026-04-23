@@ -53,7 +53,13 @@ import { IEventHandler, EventsHandler } from '@nestjs/cqrs';
 import { EmployeeCreatedEvent } from '../events/employeecreated.event';
 import { EmployeeUpdatedEvent } from '../events/employeeupdated.event';
 import { EmployeeDeletedEvent } from '../events/employeedeleted.event';
-
+import { EmployeeHiredEvent } from "../events/employeehired.event";
+import { EmployeeTransferredEvent } from "../events/employeetransferred.event";
+import { EmployeeSuspendedEvent } from "../events/employeesuspended.event";
+import { EmployeeTerminatedEvent } from "../events/employeeterminated.event";
+import { EmployeeAssignedToOrgNodeEvent } from "../events/employeeassignedtoorgnode.event";
+import { EmployeeRemovedFromOrgNodeEvent } from "../events/employeeremovedfromorgnode.event";
+import { EmployeeTransferredOrgNodeEvent } from "../events/employeetransferredorgnode.event";
 
 //Enfoque Event Sourcing
 import { CommandBus, EventBus } from '@nestjs/cqrs';
@@ -66,7 +72,7 @@ import { EventSourcingHelper } from '../shared/decorators/event-sourcing.helper'
 import { EventSourcingConfigOptions } from '../shared/decorators/event-sourcing.decorator';
 
 
-@EventsHandler(EmployeeCreatedEvent, EmployeeUpdatedEvent, EmployeeDeletedEvent)
+@EventsHandler(EmployeeCreatedEvent, EmployeeUpdatedEvent, EmployeeDeletedEvent, EmployeeHiredEvent, EmployeeTransferredEvent, EmployeeSuspendedEvent, EmployeeTerminatedEvent, EmployeeAssignedToOrgNodeEvent, EmployeeRemovedFromOrgNodeEvent, EmployeeTransferredOrgNodeEvent)
 @Injectable()
 export class EmployeeCommandRepository implements IEventHandler<BaseEvent>{
 
@@ -158,7 +164,20 @@ export class EmployeeCommandRepository implements IEventHandler<BaseEvent>{
         return await this.onEmployeeUpdated(event);
       case 'EmployeeDeletedEvent':
         return await this.onEmployeeDeleted(event);
-
+      case 'EmployeeHiredEvent':
+        return await this.onEmployeeHired(event);
+      case 'EmployeeTransferredEvent':
+        return await this.onEmployeeTransferred(event);
+      case 'EmployeeSuspendedEvent':
+        return await this.onEmployeeSuspended(event);
+      case 'EmployeeTerminatedEvent':
+        return await this.onEmployeeTerminated(event);
+      case 'EmployeeAssignedToOrgNodeEvent':
+        return await this.onEmployeeAssignedToOrgNode(event);
+      case 'EmployeeRemovedFromOrgNodeEvent':
+        return await this.onEmployeeRemovedFromOrgNode(event);
+      case 'EmployeeTransferredOrgNodeEvent':
+        return await this.onEmployeeTransferredOrgNode(event);
     }
     return false;
   }
@@ -252,6 +271,103 @@ export class EmployeeCommandRepository implements IEventHandler<BaseEvent>{
     return await this.repository.delete(event.aggregateId);
   }
 
+  private async onEmployeeHired(event: EmployeeHiredEvent) {
+    logger.info('Ready to handle onEmployeeHired event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'employee'
+      } as Partial<Employee>);
+      return await this.repository.save(projectedEntity as Employee);
+    }
+    return true;
+  }
+
+  private async onEmployeeTransferred(event: EmployeeTransferredEvent) {
+    logger.info('Ready to handle onEmployeeTransferred event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'employee'
+      } as Partial<Employee>);
+      return await this.repository.save(projectedEntity as Employee);
+    }
+    return true;
+  }
+
+  private async onEmployeeSuspended(event: EmployeeSuspendedEvent) {
+    logger.info('Ready to handle onEmployeeSuspended event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'employee'
+      } as Partial<Employee>);
+      return await this.repository.save(projectedEntity as Employee);
+    }
+    return true;
+  }
+
+  private async onEmployeeTerminated(event: EmployeeTerminatedEvent) {
+    logger.info('Ready to handle onEmployeeTerminated event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'employee'
+      } as Partial<Employee>);
+      return await this.repository.save(projectedEntity as Employee);
+    }
+    return true;
+  }
+
+  private async onEmployeeAssignedToOrgNode(event: EmployeeAssignedToOrgNodeEvent) {
+    logger.info('Ready to handle onEmployeeAssignedToOrgNode event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'employee'
+      } as Partial<Employee>);
+      return await this.repository.save(projectedEntity as Employee);
+    }
+    return true;
+  }
+
+  private async onEmployeeRemovedFromOrgNode(event: EmployeeRemovedFromOrgNodeEvent) {
+    logger.info('Ready to handle onEmployeeRemovedFromOrgNode event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'employee'
+      } as Partial<Employee>);
+      return await this.repository.save(projectedEntity as Employee);
+    }
+    return true;
+  }
+
+  private async onEmployeeTransferredOrgNode(event: EmployeeTransferredOrgNodeEvent) {
+    logger.info('Ready to handle onEmployeeTransferredOrgNode event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'employee'
+      } as Partial<Employee>);
+      return await this.repository.save(projectedEntity as Employee);
+    }
+    return true;
+  }
 
 
   // ----------------------------

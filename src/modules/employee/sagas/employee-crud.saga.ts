@@ -36,7 +36,13 @@ import {
   EmployeeCreatedEvent,
   EmployeeUpdatedEvent,
   EmployeeDeletedEvent,
-
+  EmployeeHiredEvent,
+  EmployeeTransferredEvent,
+  EmployeeSuspendedEvent,
+  EmployeeTerminatedEvent,
+  EmployeeAssignedToOrgNodeEvent,
+  EmployeeRemovedFromOrgNodeEvent,
+  EmployeeTransferredOrgNodeEvent,
 } from '../events/exporting.event';
 import {
   SagaEmployeeFailedEvent
@@ -100,6 +106,82 @@ export class EmployeeCrudSaga {
     );
   };
 
+  @Saga()
+  onEmployeeHired = ($events: Observable<EmployeeHiredEvent>) => {
+    return $events.pipe(
+      ofType(EmployeeHiredEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio EmployeeHired: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onEmployeeTransferred = ($events: Observable<EmployeeTransferredEvent>) => {
+    return $events.pipe(
+      ofType(EmployeeTransferredEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio EmployeeTransferred: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onEmployeeSuspended = ($events: Observable<EmployeeSuspendedEvent>) => {
+    return $events.pipe(
+      ofType(EmployeeSuspendedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio EmployeeSuspended: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onEmployeeTerminated = ($events: Observable<EmployeeTerminatedEvent>) => {
+    return $events.pipe(
+      ofType(EmployeeTerminatedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio EmployeeTerminated: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onEmployeeAssignedToOrgNode = ($events: Observable<EmployeeAssignedToOrgNodeEvent>) => {
+    return $events.pipe(
+      ofType(EmployeeAssignedToOrgNodeEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio EmployeeAssignedToOrgNode: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onEmployeeRemovedFromOrgNode = ($events: Observable<EmployeeRemovedFromOrgNodeEvent>) => {
+    return $events.pipe(
+      ofType(EmployeeRemovedFromOrgNodeEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio EmployeeRemovedFromOrgNode: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onEmployeeTransferredOrgNode = ($events: Observable<EmployeeTransferredOrgNodeEvent>) => {
+    return $events.pipe(
+      ofType(EmployeeTransferredOrgNodeEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio EmployeeTransferredOrgNode: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
 
   @LogExecutionTime({
     layer: 'saga',

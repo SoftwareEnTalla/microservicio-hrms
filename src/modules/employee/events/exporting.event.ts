@@ -30,7 +30,13 @@
 export * from "./employeedeleted.event"; 
 export * from "./employeecreated.event";
 export * from "./employeeupdated.event";
-
+export * from "./employeehired.event";
+export * from "./employeetransferred.event";
+export * from "./employeesuspended.event";
+export * from "./employeeterminated.event";
+export * from "./employeeassignedtoorgnode.event";
+export * from "./employeeremovedfromorgnode.event";
+export * from "./employeetransferredorgnode.event";
 export * from "./event-registry";
 export * from "./base.event";
 export * from "./employee-failed.event";
