@@ -33,6 +33,9 @@ import { BaseEvent } from './base.event';
 import { HrmsPermissionsCreatedEvent } from './hrmspermissionscreated.event';
 import { HrmsPermissionsUpdatedEvent } from './hrmspermissionsupdated.event';
 import { HrmsPermissionsDeletedEvent } from './hrmspermissionsdeleted.event';
+import { HrmsAclResolvedEvent } from './hrmsaclresolved.event';
+import { HrmsPermissionGrantedEvent } from './hrmspermissiongranted.event';
+import { HrmsPermissionRevokedEvent } from './hrmspermissionrevoked.event';
 
 export type RegisteredEventClass<T extends BaseEvent = BaseEvent> = new (
   aggregateId: string,
@@ -87,7 +90,9 @@ export const EVENT_DEFINITIONS: Record<string, RegisteredEventDefinition> = {
   'hrms-permissions-created': createEventDefinition('hrms-permissions-created', HrmsPermissionsCreatedEvent, EVENT_DEFINITION_OVERRIDES['hrms-permissions-created']),
   'hrms-permissions-updated': createEventDefinition('hrms-permissions-updated', HrmsPermissionsUpdatedEvent, EVENT_DEFINITION_OVERRIDES['hrms-permissions-updated']),
   'hrms-permissions-deleted': createEventDefinition('hrms-permissions-deleted', HrmsPermissionsDeletedEvent, EVENT_DEFINITION_OVERRIDES['hrms-permissions-deleted']),
-
+  'hrms-acl-resolved': createEventDefinition('hrms-acl-resolved', HrmsAclResolvedEvent, EVENT_DEFINITION_OVERRIDES['hrms-acl-resolved']),
+  'hrms-permission-granted': createEventDefinition('hrms-permission-granted', HrmsPermissionGrantedEvent, EVENT_DEFINITION_OVERRIDES['hrms-permission-granted']),
+  'hrms-permission-revoked': createEventDefinition('hrms-permission-revoked', HrmsPermissionRevokedEvent, EVENT_DEFINITION_OVERRIDES['hrms-permission-revoked']),
 };
 
 export const EVENT_REGISTRY: Record<string, RegisteredEventClass> = Object.fromEntries(

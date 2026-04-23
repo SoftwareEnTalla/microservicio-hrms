@@ -51,7 +51,9 @@ import { KafkaEventPublisher } from "../shared/adapters/kafka-event-publisher";
 import { ModuleRef } from "@nestjs/core";
 import { HrmsPermissionsQueryService } from "./hrmspermissionsquery.service";
 import { BaseEvent } from "../events/base.event";
-
+import { HrmsAclResolvedEvent } from '../events/hrmsaclresolved.event';
+import { HrmsPermissionGrantedEvent } from '../events/hrmspermissiongranted.event';
+import { HrmsPermissionRevokedEvent } from '../events/hrmspermissionrevoked.event';
 
 @Injectable()
 export class HrmsPermissionsCommandService implements OnModuleInit {

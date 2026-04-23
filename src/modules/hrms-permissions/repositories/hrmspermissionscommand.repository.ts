@@ -53,7 +53,9 @@ import { IEventHandler, EventsHandler } from '@nestjs/cqrs';
 import { HrmsPermissionsCreatedEvent } from '../events/hrmspermissionscreated.event';
 import { HrmsPermissionsUpdatedEvent } from '../events/hrmspermissionsupdated.event';
 import { HrmsPermissionsDeletedEvent } from '../events/hrmspermissionsdeleted.event';
-
+import { HrmsAclResolvedEvent } from "../events/hrmsaclresolved.event";
+import { HrmsPermissionGrantedEvent } from "../events/hrmspermissiongranted.event";
+import { HrmsPermissionRevokedEvent } from "../events/hrmspermissionrevoked.event";
 
 //Enfoque Event Sourcing
 import { CommandBus, EventBus } from '@nestjs/cqrs';
@@ -66,7 +68,7 @@ import { EventSourcingHelper } from '../shared/decorators/event-sourcing.helper'
 import { EventSourcingConfigOptions } from '../shared/decorators/event-sourcing.decorator';
 
 
-@EventsHandler(HrmsPermissionsCreatedEvent, HrmsPermissionsUpdatedEvent, HrmsPermissionsDeletedEvent)
+@EventsHandler(HrmsPermissionsCreatedEvent, HrmsPermissionsUpdatedEvent, HrmsPermissionsDeletedEvent, HrmsAclResolvedEvent, HrmsPermissionGrantedEvent, HrmsPermissionRevokedEvent)
 @Injectable()
 export class HrmsPermissionsCommandRepository implements IEventHandler<BaseEvent>{
 
@@ -158,7 +160,12 @@ export class HrmsPermissionsCommandRepository implements IEventHandler<BaseEvent
         return await this.onHrmsPermissionsUpdated(event);
       case 'HrmsPermissionsDeletedEvent':
         return await this.onHrmsPermissionsDeleted(event);
-
+      case 'HrmsAclResolvedEvent':
+        return await this.onHrmsAclResolved(event);
+      case 'HrmsPermissionGrantedEvent':
+        return await this.onHrmsPermissionGranted(event);
+      case 'HrmsPermissionRevokedEvent':
+        return await this.onHrmsPermissionRevoked(event);
     }
     return false;
   }
@@ -252,6 +259,47 @@ export class HrmsPermissionsCommandRepository implements IEventHandler<BaseEvent
     return await this.repository.delete(event.aggregateId);
   }
 
+  private async onHrmsAclResolved(event: HrmsAclResolvedEvent) {
+    logger.info('Ready to handle onHrmsAclResolved event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'hrms-permissions'
+      } as Partial<HrmsPermissions>);
+      return await this.repository.save(projectedEntity as HrmsPermissions);
+    }
+    return true;
+  }
+
+  private async onHrmsPermissionGranted(event: HrmsPermissionGrantedEvent) {
+    logger.info('Ready to handle onHrmsPermissionGranted event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'hrms-permissions'
+      } as Partial<HrmsPermissions>);
+      return await this.repository.save(projectedEntity as HrmsPermissions);
+    }
+    return true;
+  }
+
+  private async onHrmsPermissionRevoked(event: HrmsPermissionRevokedEvent) {
+    logger.info('Ready to handle onHrmsPermissionRevoked event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'hrms-permissions'
+      } as Partial<HrmsPermissions>);
+      return await this.repository.save(projectedEntity as HrmsPermissions);
+    }
+    return true;
+  }
 
 
   // ----------------------------

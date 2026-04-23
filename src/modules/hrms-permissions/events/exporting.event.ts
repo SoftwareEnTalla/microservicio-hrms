@@ -30,7 +30,9 @@
 export * from "./hrmspermissionsdeleted.event"; 
 export * from "./hrmspermissionscreated.event";
 export * from "./hrmspermissionsupdated.event";
-
+export * from "./hrmsaclresolved.event";
+export * from "./hrmspermissiongranted.event";
+export * from "./hrmspermissionrevoked.event";
 export * from "./event-registry";
 export * from "./base.event";
 export * from "./hrmspermissions-failed.event";

@@ -36,7 +36,9 @@ import {
   HrmsPermissionsCreatedEvent,
   HrmsPermissionsUpdatedEvent,
   HrmsPermissionsDeletedEvent,
-
+  HrmsAclResolvedEvent,
+  HrmsPermissionGrantedEvent,
+  HrmsPermissionRevokedEvent,
 } from '../events/exporting.event';
 import {
   SagaHrmsPermissionsFailedEvent
@@ -100,6 +102,38 @@ export class HrmsPermissionsCrudSaga {
     );
   };
 
+  @Saga()
+  onHrmsAclResolved = ($events: Observable<HrmsAclResolvedEvent>) => {
+    return $events.pipe(
+      ofType(HrmsAclResolvedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio HrmsAclResolved: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onHrmsPermissionGranted = ($events: Observable<HrmsPermissionGrantedEvent>) => {
+    return $events.pipe(
+      ofType(HrmsPermissionGrantedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio HrmsPermissionGranted: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onHrmsPermissionRevoked = ($events: Observable<HrmsPermissionRevokedEvent>) => {
+    return $events.pipe(
+      ofType(HrmsPermissionRevokedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio HrmsPermissionRevoked: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
 
   @LogExecutionTime({
     layer: 'saga',
