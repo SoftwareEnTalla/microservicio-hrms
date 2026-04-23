@@ -53,7 +53,14 @@ import { IEventHandler, EventsHandler } from '@nestjs/cqrs';
 import { AccessControlCreatedEvent } from '../events/accesscontrolcreated.event';
 import { AccessControlUpdatedEvent } from '../events/accesscontrolupdated.event';
 import { AccessControlDeletedEvent } from '../events/accesscontroldeleted.event';
-
+import { AccessCredentialIssuedEvent } from "../events/accesscredentialissued.event";
+import { AccessCredentialRevokedEvent } from "../events/accesscredentialrevoked.event";
+import { AccessCredentialLostEvent } from "../events/accesscredentiallost.event";
+import { AccessCredentialExpiredEvent } from "../events/accesscredentialexpired.event";
+import { AccessCredentialTimeoutEvent } from "../events/accesscredentialtimeout.event";
+import { AccessCredentialLockedEvent } from "../events/accesscredentiallocked.event";
+import { AccessEventRecordedEvent } from "../events/accesseventrecorded.event";
+import { AccessDeniedAlertRaisedEvent } from "../events/accessdeniedalertraised.event";
 
 //Enfoque Event Sourcing
 import { CommandBus, EventBus } from '@nestjs/cqrs';
@@ -66,7 +73,7 @@ import { EventSourcingHelper } from '../shared/decorators/event-sourcing.helper'
 import { EventSourcingConfigOptions } from '../shared/decorators/event-sourcing.decorator';
 
 
-@EventsHandler(AccessControlCreatedEvent, AccessControlUpdatedEvent, AccessControlDeletedEvent)
+@EventsHandler(AccessControlCreatedEvent, AccessControlUpdatedEvent, AccessControlDeletedEvent, AccessCredentialIssuedEvent, AccessCredentialRevokedEvent, AccessCredentialLostEvent, AccessCredentialExpiredEvent, AccessCredentialTimeoutEvent, AccessCredentialLockedEvent, AccessEventRecordedEvent, AccessDeniedAlertRaisedEvent)
 @Injectable()
 export class AccessControlCommandRepository implements IEventHandler<BaseEvent>{
 
@@ -158,7 +165,22 @@ export class AccessControlCommandRepository implements IEventHandler<BaseEvent>{
         return await this.onAccessControlUpdated(event);
       case 'AccessControlDeletedEvent':
         return await this.onAccessControlDeleted(event);
-
+      case 'AccessCredentialIssuedEvent':
+        return await this.onAccessCredentialIssued(event);
+      case 'AccessCredentialRevokedEvent':
+        return await this.onAccessCredentialRevoked(event);
+      case 'AccessCredentialLostEvent':
+        return await this.onAccessCredentialLost(event);
+      case 'AccessCredentialExpiredEvent':
+        return await this.onAccessCredentialExpired(event);
+      case 'AccessCredentialTimeoutEvent':
+        return await this.onAccessCredentialTimeout(event);
+      case 'AccessCredentialLockedEvent':
+        return await this.onAccessCredentialLocked(event);
+      case 'AccessEventRecordedEvent':
+        return await this.onAccessEventRecorded(event);
+      case 'AccessDeniedAlertRaisedEvent':
+        return await this.onAccessDeniedAlertRaised(event);
     }
     return false;
   }
@@ -252,6 +274,117 @@ export class AccessControlCommandRepository implements IEventHandler<BaseEvent>{
     return await this.repository.delete(event.aggregateId);
   }
 
+  private async onAccessCredentialIssued(event: AccessCredentialIssuedEvent) {
+    logger.info('Ready to handle onAccessCredentialIssued event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'access-control'
+      } as Partial<AccessControl>);
+      return await this.repository.save(projectedEntity as AccessControl);
+    }
+    return true;
+  }
+
+  private async onAccessCredentialRevoked(event: AccessCredentialRevokedEvent) {
+    logger.info('Ready to handle onAccessCredentialRevoked event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'access-control'
+      } as Partial<AccessControl>);
+      return await this.repository.save(projectedEntity as AccessControl);
+    }
+    return true;
+  }
+
+  private async onAccessCredentialLost(event: AccessCredentialLostEvent) {
+    logger.info('Ready to handle onAccessCredentialLost event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'access-control'
+      } as Partial<AccessControl>);
+      return await this.repository.save(projectedEntity as AccessControl);
+    }
+    return true;
+  }
+
+  private async onAccessCredentialExpired(event: AccessCredentialExpiredEvent) {
+    logger.info('Ready to handle onAccessCredentialExpired event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'access-control'
+      } as Partial<AccessControl>);
+      return await this.repository.save(projectedEntity as AccessControl);
+    }
+    return true;
+  }
+
+  private async onAccessCredentialTimeout(event: AccessCredentialTimeoutEvent) {
+    logger.info('Ready to handle onAccessCredentialTimeout event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'access-control'
+      } as Partial<AccessControl>);
+      return await this.repository.save(projectedEntity as AccessControl);
+    }
+    return true;
+  }
+
+  private async onAccessCredentialLocked(event: AccessCredentialLockedEvent) {
+    logger.info('Ready to handle onAccessCredentialLocked event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'access-control'
+      } as Partial<AccessControl>);
+      return await this.repository.save(projectedEntity as AccessControl);
+    }
+    return true;
+  }
+
+  private async onAccessEventRecorded(event: AccessEventRecordedEvent) {
+    logger.info('Ready to handle onAccessEventRecorded event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'access-control'
+      } as Partial<AccessControl>);
+      return await this.repository.save(projectedEntity as AccessControl);
+    }
+    return true;
+  }
+
+  private async onAccessDeniedAlertRaised(event: AccessDeniedAlertRaisedEvent) {
+    logger.info('Ready to handle onAccessDeniedAlertRaised event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'access-control'
+      } as Partial<AccessControl>);
+      return await this.repository.save(projectedEntity as AccessControl);
+    }
+    return true;
+  }
 
 
   // ----------------------------

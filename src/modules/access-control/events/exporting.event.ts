@@ -30,7 +30,14 @@
 export * from "./accesscontroldeleted.event"; 
 export * from "./accesscontrolcreated.event";
 export * from "./accesscontrolupdated.event";
-
+export * from "./accesscredentialissued.event";
+export * from "./accesscredentialrevoked.event";
+export * from "./accesscredentiallost.event";
+export * from "./accesscredentialexpired.event";
+export * from "./accesscredentialtimeout.event";
+export * from "./accesscredentiallocked.event";
+export * from "./accesseventrecorded.event";
+export * from "./accessdeniedalertraised.event";
 export * from "./event-registry";
 export * from "./base.event";
 export * from "./accesscontrol-failed.event";

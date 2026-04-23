@@ -33,6 +33,14 @@ import { BaseEvent } from './base.event';
 import { AccessControlCreatedEvent } from './accesscontrolcreated.event';
 import { AccessControlUpdatedEvent } from './accesscontrolupdated.event';
 import { AccessControlDeletedEvent } from './accesscontroldeleted.event';
+import { AccessCredentialIssuedEvent } from './accesscredentialissued.event';
+import { AccessCredentialRevokedEvent } from './accesscredentialrevoked.event';
+import { AccessCredentialLostEvent } from './accesscredentiallost.event';
+import { AccessCredentialExpiredEvent } from './accesscredentialexpired.event';
+import { AccessCredentialTimeoutEvent } from './accesscredentialtimeout.event';
+import { AccessCredentialLockedEvent } from './accesscredentiallocked.event';
+import { AccessEventRecordedEvent } from './accesseventrecorded.event';
+import { AccessDeniedAlertRaisedEvent } from './accessdeniedalertraised.event';
 
 export type RegisteredEventClass<T extends BaseEvent = BaseEvent> = new (
   aggregateId: string,
@@ -112,7 +120,14 @@ export const EVENT_DEFINITIONS: Record<string, RegisteredEventDefinition> = {
   'access-control-created': createEventDefinition('access-control-created', AccessControlCreatedEvent, EVENT_DEFINITION_OVERRIDES['access-control-created']),
   'access-control-updated': createEventDefinition('access-control-updated', AccessControlUpdatedEvent, EVENT_DEFINITION_OVERRIDES['access-control-updated']),
   'access-control-deleted': createEventDefinition('access-control-deleted', AccessControlDeletedEvent, EVENT_DEFINITION_OVERRIDES['access-control-deleted']),
-
+  'access-credential-issued': createEventDefinition('access-credential-issued', AccessCredentialIssuedEvent, EVENT_DEFINITION_OVERRIDES['access-credential-issued']),
+  'access-credential-revoked': createEventDefinition('access-credential-revoked', AccessCredentialRevokedEvent, EVENT_DEFINITION_OVERRIDES['access-credential-revoked']),
+  'access-credential-lost': createEventDefinition('access-credential-lost', AccessCredentialLostEvent, EVENT_DEFINITION_OVERRIDES['access-credential-lost']),
+  'access-credential-expired': createEventDefinition('access-credential-expired', AccessCredentialExpiredEvent, EVENT_DEFINITION_OVERRIDES['access-credential-expired']),
+  'access-credential-timeout': createEventDefinition('access-credential-timeout', AccessCredentialTimeoutEvent, EVENT_DEFINITION_OVERRIDES['access-credential-timeout']),
+  'access-credential-locked': createEventDefinition('access-credential-locked', AccessCredentialLockedEvent, EVENT_DEFINITION_OVERRIDES['access-credential-locked']),
+  'access-event-recorded': createEventDefinition('access-event-recorded', AccessEventRecordedEvent, EVENT_DEFINITION_OVERRIDES['access-event-recorded']),
+  'access-denied-alert-raised': createEventDefinition('access-denied-alert-raised', AccessDeniedAlertRaisedEvent, EVENT_DEFINITION_OVERRIDES['access-denied-alert-raised']),
 };
 
 export const EVENT_REGISTRY: Record<string, RegisteredEventClass> = Object.fromEntries(

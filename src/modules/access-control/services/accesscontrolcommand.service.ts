@@ -51,7 +51,14 @@ import { KafkaEventPublisher } from "../shared/adapters/kafka-event-publisher";
 import { ModuleRef } from "@nestjs/core";
 import { AccessControlQueryService } from "./accesscontrolquery.service";
 import { BaseEvent } from "../events/base.event";
-
+import { AccessCredentialIssuedEvent } from '../events/accesscredentialissued.event';
+import { AccessCredentialRevokedEvent } from '../events/accesscredentialrevoked.event';
+import { AccessCredentialLostEvent } from '../events/accesscredentiallost.event';
+import { AccessCredentialExpiredEvent } from '../events/accesscredentialexpired.event';
+import { AccessCredentialTimeoutEvent } from '../events/accesscredentialtimeout.event';
+import { AccessCredentialLockedEvent } from '../events/accesscredentiallocked.event';
+import { AccessEventRecordedEvent } from '../events/accesseventrecorded.event';
+import { AccessDeniedAlertRaisedEvent } from '../events/accessdeniedalertraised.event';
 
 @Injectable()
 export class AccessControlCommandService implements OnModuleInit {

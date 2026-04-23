@@ -36,7 +36,14 @@ import {
   AccessControlCreatedEvent,
   AccessControlUpdatedEvent,
   AccessControlDeletedEvent,
-
+  AccessCredentialIssuedEvent,
+  AccessCredentialRevokedEvent,
+  AccessCredentialLostEvent,
+  AccessCredentialExpiredEvent,
+  AccessCredentialTimeoutEvent,
+  AccessCredentialLockedEvent,
+  AccessEventRecordedEvent,
+  AccessDeniedAlertRaisedEvent,
 } from '../events/exporting.event';
 import {
   SagaAccessControlFailedEvent
@@ -100,6 +107,93 @@ export class AccessControlCrudSaga {
     );
   };
 
+  @Saga()
+  onAccessCredentialIssued = ($events: Observable<AccessCredentialIssuedEvent>) => {
+    return $events.pipe(
+      ofType(AccessCredentialIssuedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio AccessCredentialIssued: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onAccessCredentialRevoked = ($events: Observable<AccessCredentialRevokedEvent>) => {
+    return $events.pipe(
+      ofType(AccessCredentialRevokedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio AccessCredentialRevoked: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onAccessCredentialLost = ($events: Observable<AccessCredentialLostEvent>) => {
+    return $events.pipe(
+      ofType(AccessCredentialLostEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio AccessCredentialLost: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onAccessCredentialExpired = ($events: Observable<AccessCredentialExpiredEvent>) => {
+    return $events.pipe(
+      ofType(AccessCredentialExpiredEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio AccessCredentialExpired: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onAccessCredentialTimeout = ($events: Observable<AccessCredentialTimeoutEvent>) => {
+    return $events.pipe(
+      ofType(AccessCredentialTimeoutEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio AccessCredentialTimeout: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onAccessCredentialLocked = ($events: Observable<AccessCredentialLockedEvent>) => {
+    return $events.pipe(
+      ofType(AccessCredentialLockedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio AccessCredentialLocked: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onAccessEventRecorded = ($events: Observable<AccessEventRecordedEvent>) => {
+    return $events.pipe(
+      ofType(AccessEventRecordedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio AccessEventRecorded: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onAccessDeniedAlertRaised = ($events: Observable<AccessDeniedAlertRaisedEvent>) => {
+    return $events.pipe(
+      ofType(AccessDeniedAlertRaisedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio AccessDeniedAlertRaised: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
 
   @LogExecutionTime({
     layer: 'saga',
