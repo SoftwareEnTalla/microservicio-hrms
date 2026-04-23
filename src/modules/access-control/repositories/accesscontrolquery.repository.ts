@@ -275,15 +275,19 @@ import { logger } from '@core/logs/logger';
       .registerClient(AccessControlRepository.name)
       .get(AccessControlRepository.name),
   })
-    async findOne(where?: Record<string, any>): Promise<AccessControl | null> {
-      const tmp: FindOptionsWhere<AccessControl> = where as FindOptionsWhere<AccessControl>;
-      logger.info('Ready to findOneBy AccessControl on repository with conditions:', tmp);
-      // Si 'where' es undefined o null, puedes manejarlo según tu lógica
-      if (!where) {
+        async findOne(options?: Record<string, any>): Promise<AccessControl | null> {
+      if (!options || Object.keys(options).length === 0) {
         logger.warn('No conditions provided for finding AccessControl.');
-        return null; // O maneja el caso como prefieras
+        return null;
       }
-      logger.info('Ready to findOneBy AccessControl on repository:',tmp);
+      // Soporta tanto 'where plano' como FindOneOptions ({ where, relations, order, select })
+      const isFindOneOptions = 'where' in options || 'relations' in options || 'order' in options || 'select' in options;
+      if (isFindOneOptions) {
+        logger.info('Ready to findOne (FindOneOptions) AccessControl:', options);
+        return this.repository.findOne(options as any);
+      }
+      const tmp: FindOptionsWhere<AccessControl> = options as FindOptionsWhere<AccessControl>;
+      logger.info('Ready to findOneBy AccessControl on repository:', tmp);
       return this.repository.findOneBy(tmp);
     }
 

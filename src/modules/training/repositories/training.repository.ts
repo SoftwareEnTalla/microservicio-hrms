@@ -272,15 +272,19 @@ import { logger } from '@core/logs/logger';
       .registerClient(TrainingRepository.name)
       .get(TrainingRepository.name),
     })
-    async findOne(where?: Record<string, any>): Promise<Training | null> {
-      const tmp: FindOptionsWhere<Training> = where as FindOptionsWhere<Training>;
-      logger.info('Ready to findOneBy Training on repository with conditions:', tmp);
-      // Si 'where' es undefined o null, puedes manejarlo según tu lógica
-      if (!where) {
+        async findOne(options?: Record<string, any>): Promise<Training | null> {
+      if (!options || Object.keys(options).length === 0) {
         logger.warn('No conditions provided for finding Training.');
-        return null; // O maneja el caso como prefieras
+        return null;
       }
-      logger.info('Ready to findOneBy Training on repository:',tmp);
+      // Soporta tanto 'where plano' como FindOneOptions ({ where, relations, order, select })
+      const isFindOneOptions = 'where' in options || 'relations' in options || 'order' in options || 'select' in options;
+      if (isFindOneOptions) {
+        logger.info('Ready to findOne (FindOneOptions) Training:', options);
+        return this.repository.findOne(options as any);
+      }
+      const tmp: FindOptionsWhere<Training> = options as FindOptionsWhere<Training>;
+      logger.info('Ready to findOneBy Training on repository:', tmp);
       return this.repository.findOneBy(tmp);
     }
 

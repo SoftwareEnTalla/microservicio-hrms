@@ -275,15 +275,19 @@ import { logger } from '@core/logs/logger';
       .registerClient(EmployeeAttributeRepository.name)
       .get(EmployeeAttributeRepository.name),
   })
-    async findOne(where?: Record<string, any>): Promise<EmployeeAttribute | null> {
-      const tmp: FindOptionsWhere<EmployeeAttribute> = where as FindOptionsWhere<EmployeeAttribute>;
-      logger.info('Ready to findOneBy EmployeeAttribute on repository with conditions:', tmp);
-      // Si 'where' es undefined o null, puedes manejarlo según tu lógica
-      if (!where) {
+        async findOne(options?: Record<string, any>): Promise<EmployeeAttribute | null> {
+      if (!options || Object.keys(options).length === 0) {
         logger.warn('No conditions provided for finding EmployeeAttribute.');
-        return null; // O maneja el caso como prefieras
+        return null;
       }
-      logger.info('Ready to findOneBy EmployeeAttribute on repository:',tmp);
+      // Soporta tanto 'where plano' como FindOneOptions ({ where, relations, order, select })
+      const isFindOneOptions = 'where' in options || 'relations' in options || 'order' in options || 'select' in options;
+      if (isFindOneOptions) {
+        logger.info('Ready to findOne (FindOneOptions) EmployeeAttribute:', options);
+        return this.repository.findOne(options as any);
+      }
+      const tmp: FindOptionsWhere<EmployeeAttribute> = options as FindOptionsWhere<EmployeeAttribute>;
+      logger.info('Ready to findOneBy EmployeeAttribute on repository:', tmp);
       return this.repository.findOneBy(tmp);
     }
 

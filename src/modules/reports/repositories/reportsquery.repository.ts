@@ -275,15 +275,19 @@ import { logger } from '@core/logs/logger';
       .registerClient(ReportsRepository.name)
       .get(ReportsRepository.name),
   })
-    async findOne(where?: Record<string, any>): Promise<Reports | null> {
-      const tmp: FindOptionsWhere<Reports> = where as FindOptionsWhere<Reports>;
-      logger.info('Ready to findOneBy Reports on repository with conditions:', tmp);
-      // Si 'where' es undefined o null, puedes manejarlo según tu lógica
-      if (!where) {
+        async findOne(options?: Record<string, any>): Promise<Reports | null> {
+      if (!options || Object.keys(options).length === 0) {
         logger.warn('No conditions provided for finding Reports.');
-        return null; // O maneja el caso como prefieras
+        return null;
       }
-      logger.info('Ready to findOneBy Reports on repository:',tmp);
+      // Soporta tanto 'where plano' como FindOneOptions ({ where, relations, order, select })
+      const isFindOneOptions = 'where' in options || 'relations' in options || 'order' in options || 'select' in options;
+      if (isFindOneOptions) {
+        logger.info('Ready to findOne (FindOneOptions) Reports:', options);
+        return this.repository.findOne(options as any);
+      }
+      const tmp: FindOptionsWhere<Reports> = options as FindOptionsWhere<Reports>;
+      logger.info('Ready to findOneBy Reports on repository:', tmp);
       return this.repository.findOneBy(tmp);
     }
 
