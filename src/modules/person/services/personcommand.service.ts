@@ -51,7 +51,7 @@ import { KafkaEventPublisher } from "../shared/adapters/kafka-event-publisher";
 import { ModuleRef } from "@nestjs/core";
 import { PersonQueryService } from "./personquery.service";
 import { BaseEvent } from "../events/base.event";
-
+import { PersonArchivedEvent } from '../events/personarchived.event';
 
 @Injectable()
 export class PersonCommandService implements OnModuleInit {

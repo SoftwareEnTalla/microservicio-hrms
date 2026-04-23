@@ -36,7 +36,7 @@ import {
   PersonCreatedEvent,
   PersonUpdatedEvent,
   PersonDeletedEvent,
-
+  PersonArchivedEvent,
 } from '../events/exporting.event';
 import {
   SagaPersonFailedEvent
@@ -100,6 +100,16 @@ export class PersonCrudSaga {
     );
   };
 
+  @Saga()
+  onPersonArchived = ($events: Observable<PersonArchivedEvent>) => {
+    return $events.pipe(
+      ofType(PersonArchivedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio PersonArchived: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
 
   @LogExecutionTime({
     layer: 'saga',

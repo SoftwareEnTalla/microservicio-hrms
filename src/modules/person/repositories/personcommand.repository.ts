@@ -53,7 +53,7 @@ import { IEventHandler, EventsHandler } from '@nestjs/cqrs';
 import { PersonCreatedEvent } from '../events/personcreated.event';
 import { PersonUpdatedEvent } from '../events/personupdated.event';
 import { PersonDeletedEvent } from '../events/persondeleted.event';
-
+import { PersonArchivedEvent } from "../events/personarchived.event";
 
 //Enfoque Event Sourcing
 import { CommandBus, EventBus } from '@nestjs/cqrs';
@@ -66,7 +66,7 @@ import { EventSourcingHelper } from '../shared/decorators/event-sourcing.helper'
 import { EventSourcingConfigOptions } from '../shared/decorators/event-sourcing.decorator';
 
 
-@EventsHandler(PersonCreatedEvent, PersonUpdatedEvent, PersonDeletedEvent)
+@EventsHandler(PersonCreatedEvent, PersonUpdatedEvent, PersonDeletedEvent, PersonArchivedEvent)
 @Injectable()
 export class PersonCommandRepository implements IEventHandler<BaseEvent>{
 
@@ -158,7 +158,8 @@ export class PersonCommandRepository implements IEventHandler<BaseEvent>{
         return await this.onPersonUpdated(event);
       case 'PersonDeletedEvent':
         return await this.onPersonDeleted(event);
-
+      case 'PersonArchivedEvent':
+        return await this.onPersonArchived(event);
     }
     return false;
   }
@@ -252,6 +253,19 @@ export class PersonCommandRepository implements IEventHandler<BaseEvent>{
     return await this.repository.delete(event.aggregateId);
   }
 
+  private async onPersonArchived(event: PersonArchivedEvent) {
+    logger.info('Ready to handle onPersonArchived event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'person'
+      } as Partial<Person>);
+      return await this.repository.save(projectedEntity as Person);
+    }
+    return true;
+  }
 
 
   // ----------------------------

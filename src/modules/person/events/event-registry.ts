@@ -33,6 +33,7 @@ import { BaseEvent } from './base.event';
 import { PersonCreatedEvent } from './personcreated.event';
 import { PersonUpdatedEvent } from './personupdated.event';
 import { PersonDeletedEvent } from './persondeleted.event';
+import { PersonArchivedEvent } from './personarchived.event';
 
 export type RegisteredEventClass<T extends BaseEvent = BaseEvent> = new (
   aggregateId: string,
@@ -87,7 +88,7 @@ export const EVENT_DEFINITIONS: Record<string, RegisteredEventDefinition> = {
   'person-created': createEventDefinition('person-created', PersonCreatedEvent, EVENT_DEFINITION_OVERRIDES['person-created']),
   'person-updated': createEventDefinition('person-updated', PersonUpdatedEvent, EVENT_DEFINITION_OVERRIDES['person-updated']),
   'person-deleted': createEventDefinition('person-deleted', PersonDeletedEvent, EVENT_DEFINITION_OVERRIDES['person-deleted']),
-
+  'person-archived': createEventDefinition('person-archived', PersonArchivedEvent, EVENT_DEFINITION_OVERRIDES['person-archived']),
 };
 
 export const EVENT_REGISTRY: Record<string, RegisteredEventClass> = Object.fromEntries(

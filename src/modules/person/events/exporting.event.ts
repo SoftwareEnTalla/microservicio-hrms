@@ -30,7 +30,7 @@
 export * from "./persondeleted.event"; 
 export * from "./personcreated.event";
 export * from "./personupdated.event";
-
+export * from "./personarchived.event";
 export * from "./event-registry";
 export * from "./base.event";
 export * from "./person-failed.event";
