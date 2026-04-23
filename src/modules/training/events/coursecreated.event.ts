@@ -34,7 +34,7 @@ import { Training } from '../entities/training.entity';
 import { BaseEvent, PayloadEvent } from './base.event'; 
 import { v4 as uuidv4 } from "uuid";
 
-export class TrainingCreatedEvent extends BaseEvent {
+export class CourseCreatedEvent extends BaseEvent {
   constructor(
     public readonly aggregateId: string,
     public readonly payload: PayloadEvent<CreateTrainingDto|Training>
@@ -49,8 +49,8 @@ export class TrainingCreatedEvent extends BaseEvent {
           instance: CreateTrainingDto|Training,
           userId: string,
           correlationId: string=uuidv4()
-        ): TrainingCreatedEvent {
-          return new TrainingCreatedEvent(instanceId, {
+        ): CourseCreatedEvent {
+          return new CourseCreatedEvent(instanceId, {
             instance: instance,
             metadata: {
               initiatedBy: userId,
