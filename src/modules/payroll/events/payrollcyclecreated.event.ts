@@ -34,7 +34,7 @@ import { Payroll } from '../entities/payroll.entity';
 import { BaseEvent, PayloadEvent } from './base.event'; 
 import { v4 as uuidv4 } from "uuid";
 
-export class PayrollCreatedEvent extends BaseEvent {
+export class PayrollCycleCreatedEvent extends BaseEvent {
   constructor(
     public readonly aggregateId: string,
     public readonly payload: PayloadEvent<CreatePayrollDto|Payroll>
@@ -49,8 +49,8 @@ export class PayrollCreatedEvent extends BaseEvent {
           instance: CreatePayrollDto|Payroll,
           userId: string,
           correlationId: string=uuidv4()
-        ): PayrollCreatedEvent {
-          return new PayrollCreatedEvent(instanceId, {
+        ): PayrollCycleCreatedEvent {
+          return new PayrollCycleCreatedEvent(instanceId, {
             instance: instance,
             metadata: {
               initiatedBy: userId,
