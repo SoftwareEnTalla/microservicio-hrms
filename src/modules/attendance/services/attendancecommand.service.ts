@@ -51,7 +51,10 @@ import { KafkaEventPublisher } from "../shared/adapters/kafka-event-publisher";
 import { ModuleRef } from "@nestjs/core";
 import { AttendanceQueryService } from "./attendancequery.service";
 import { BaseEvent } from "../events/base.event";
-
+import { TimeEntryRecordedEvent } from '../events/timeentryrecorded.event';
+import { TimesheetCalculatedEvent } from '../events/timesheetcalculated.event';
+import { TimesheetApprovedEvent } from '../events/timesheetapproved.event';
+import { OvertimeApprovedEvent } from '../events/overtimeapproved.event';
 
 @Injectable()
 export class AttendanceCommandService implements OnModuleInit {

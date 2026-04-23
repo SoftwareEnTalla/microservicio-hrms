@@ -36,7 +36,10 @@ import {
   AttendanceCreatedEvent,
   AttendanceUpdatedEvent,
   AttendanceDeletedEvent,
-
+  TimeEntryRecordedEvent,
+  TimesheetCalculatedEvent,
+  TimesheetApprovedEvent,
+  OvertimeApprovedEvent,
 } from '../events/exporting.event';
 import {
   SagaAttendanceFailedEvent
@@ -100,6 +103,49 @@ export class AttendanceCrudSaga {
     );
   };
 
+  @Saga()
+  onTimeEntryRecorded = ($events: Observable<TimeEntryRecordedEvent>) => {
+    return $events.pipe(
+      ofType(TimeEntryRecordedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio TimeEntryRecorded: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onTimesheetCalculated = ($events: Observable<TimesheetCalculatedEvent>) => {
+    return $events.pipe(
+      ofType(TimesheetCalculatedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio TimesheetCalculated: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onTimesheetApproved = ($events: Observable<TimesheetApprovedEvent>) => {
+    return $events.pipe(
+      ofType(TimesheetApprovedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio TimesheetApproved: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onOvertimeApproved = ($events: Observable<OvertimeApprovedEvent>) => {
+    return $events.pipe(
+      ofType(OvertimeApprovedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio OvertimeApproved: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
 
   @LogExecutionTime({
     layer: 'saga',

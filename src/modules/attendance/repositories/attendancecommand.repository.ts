@@ -53,7 +53,10 @@ import { IEventHandler, EventsHandler } from '@nestjs/cqrs';
 import { AttendanceCreatedEvent } from '../events/attendancecreated.event';
 import { AttendanceUpdatedEvent } from '../events/attendanceupdated.event';
 import { AttendanceDeletedEvent } from '../events/attendancedeleted.event';
-
+import { TimeEntryRecordedEvent } from "../events/timeentryrecorded.event";
+import { TimesheetCalculatedEvent } from "../events/timesheetcalculated.event";
+import { TimesheetApprovedEvent } from "../events/timesheetapproved.event";
+import { OvertimeApprovedEvent } from "../events/overtimeapproved.event";
 
 //Enfoque Event Sourcing
 import { CommandBus, EventBus } from '@nestjs/cqrs';
@@ -66,7 +69,7 @@ import { EventSourcingHelper } from '../shared/decorators/event-sourcing.helper'
 import { EventSourcingConfigOptions } from '../shared/decorators/event-sourcing.decorator';
 
 
-@EventsHandler(AttendanceCreatedEvent, AttendanceUpdatedEvent, AttendanceDeletedEvent)
+@EventsHandler(AttendanceCreatedEvent, AttendanceUpdatedEvent, AttendanceDeletedEvent, TimeEntryRecordedEvent, TimesheetCalculatedEvent, TimesheetApprovedEvent, OvertimeApprovedEvent)
 @Injectable()
 export class AttendanceCommandRepository implements IEventHandler<BaseEvent>{
 
@@ -158,7 +161,14 @@ export class AttendanceCommandRepository implements IEventHandler<BaseEvent>{
         return await this.onAttendanceUpdated(event);
       case 'AttendanceDeletedEvent':
         return await this.onAttendanceDeleted(event);
-
+      case 'TimeEntryRecordedEvent':
+        return await this.onTimeEntryRecorded(event);
+      case 'TimesheetCalculatedEvent':
+        return await this.onTimesheetCalculated(event);
+      case 'TimesheetApprovedEvent':
+        return await this.onTimesheetApproved(event);
+      case 'OvertimeApprovedEvent':
+        return await this.onOvertimeApproved(event);
     }
     return false;
   }
@@ -252,6 +262,61 @@ export class AttendanceCommandRepository implements IEventHandler<BaseEvent>{
     return await this.repository.delete(event.aggregateId);
   }
 
+  private async onTimeEntryRecorded(event: TimeEntryRecordedEvent) {
+    logger.info('Ready to handle onTimeEntryRecorded event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'attendance'
+      } as Partial<Attendance>);
+      return await this.repository.save(projectedEntity as Attendance);
+    }
+    return true;
+  }
+
+  private async onTimesheetCalculated(event: TimesheetCalculatedEvent) {
+    logger.info('Ready to handle onTimesheetCalculated event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'attendance'
+      } as Partial<Attendance>);
+      return await this.repository.save(projectedEntity as Attendance);
+    }
+    return true;
+  }
+
+  private async onTimesheetApproved(event: TimesheetApprovedEvent) {
+    logger.info('Ready to handle onTimesheetApproved event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'attendance'
+      } as Partial<Attendance>);
+      return await this.repository.save(projectedEntity as Attendance);
+    }
+    return true;
+  }
+
+  private async onOvertimeApproved(event: OvertimeApprovedEvent) {
+    logger.info('Ready to handle onOvertimeApproved event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'attendance'
+      } as Partial<Attendance>);
+      return await this.repository.save(projectedEntity as Attendance);
+    }
+    return true;
+  }
 
 
   // ----------------------------

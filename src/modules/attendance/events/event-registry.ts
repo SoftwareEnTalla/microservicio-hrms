@@ -33,6 +33,10 @@ import { BaseEvent } from './base.event';
 import { AttendanceCreatedEvent } from './attendancecreated.event';
 import { AttendanceUpdatedEvent } from './attendanceupdated.event';
 import { AttendanceDeletedEvent } from './attendancedeleted.event';
+import { TimeEntryRecordedEvent } from './timeentryrecorded.event';
+import { TimesheetCalculatedEvent } from './timesheetcalculated.event';
+import { TimesheetApprovedEvent } from './timesheetapproved.event';
+import { OvertimeApprovedEvent } from './overtimeapproved.event';
 
 export type RegisteredEventClass<T extends BaseEvent = BaseEvent> = new (
   aggregateId: string,
@@ -92,7 +96,10 @@ export const EVENT_DEFINITIONS: Record<string, RegisteredEventDefinition> = {
   'attendance-created': createEventDefinition('attendance-created', AttendanceCreatedEvent, EVENT_DEFINITION_OVERRIDES['attendance-created']),
   'attendance-updated': createEventDefinition('attendance-updated', AttendanceUpdatedEvent, EVENT_DEFINITION_OVERRIDES['attendance-updated']),
   'attendance-deleted': createEventDefinition('attendance-deleted', AttendanceDeletedEvent, EVENT_DEFINITION_OVERRIDES['attendance-deleted']),
-
+  'time-entry-recorded': createEventDefinition('time-entry-recorded', TimeEntryRecordedEvent, EVENT_DEFINITION_OVERRIDES['time-entry-recorded']),
+  'timesheet-calculated': createEventDefinition('timesheet-calculated', TimesheetCalculatedEvent, EVENT_DEFINITION_OVERRIDES['timesheet-calculated']),
+  'timesheet-approved': createEventDefinition('timesheet-approved', TimesheetApprovedEvent, EVENT_DEFINITION_OVERRIDES['timesheet-approved']),
+  'overtime-approved': createEventDefinition('overtime-approved', OvertimeApprovedEvent, EVENT_DEFINITION_OVERRIDES['overtime-approved']),
 };
 
 export const EVENT_REGISTRY: Record<string, RegisteredEventClass> = Object.fromEntries(

@@ -30,7 +30,10 @@
 export * from "./attendancedeleted.event"; 
 export * from "./attendancecreated.event";
 export * from "./attendanceupdated.event";
-
+export * from "./timeentryrecorded.event";
+export * from "./timesheetcalculated.event";
+export * from "./timesheetapproved.event";
+export * from "./overtimeapproved.event";
 export * from "./event-registry";
 export * from "./base.event";
 export * from "./attendance-failed.event";
