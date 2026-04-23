@@ -36,7 +36,11 @@ import {
   ReportsCreatedEvent,
   ReportsUpdatedEvent,
   ReportsDeletedEvent,
-
+  ReportDefinitionRegisteredEvent,
+  ReportExecutionRequestedEvent,
+  ReportExecutionCompletedEvent,
+  ReportExecutionFailedEvent,
+  ReportScheduleTriggeredEvent,
 } from '../events/exporting.event';
 import {
   SagaReportsFailedEvent
@@ -100,6 +104,60 @@ export class ReportsCrudSaga {
     );
   };
 
+  @Saga()
+  onReportDefinitionRegistered = ($events: Observable<ReportDefinitionRegisteredEvent>) => {
+    return $events.pipe(
+      ofType(ReportDefinitionRegisteredEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio ReportDefinitionRegistered: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onReportExecutionRequested = ($events: Observable<ReportExecutionRequestedEvent>) => {
+    return $events.pipe(
+      ofType(ReportExecutionRequestedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio ReportExecutionRequested: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onReportExecutionCompleted = ($events: Observable<ReportExecutionCompletedEvent>) => {
+    return $events.pipe(
+      ofType(ReportExecutionCompletedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio ReportExecutionCompleted: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onReportExecutionFailed = ($events: Observable<ReportExecutionFailedEvent>) => {
+    return $events.pipe(
+      ofType(ReportExecutionFailedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio ReportExecutionFailed: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onReportScheduleTriggered = ($events: Observable<ReportScheduleTriggeredEvent>) => {
+    return $events.pipe(
+      ofType(ReportScheduleTriggeredEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio ReportScheduleTriggered: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
 
   @LogExecutionTime({
     layer: 'saga',

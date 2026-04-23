@@ -53,7 +53,11 @@ import { IEventHandler, EventsHandler } from '@nestjs/cqrs';
 import { ReportsCreatedEvent } from '../events/reportscreated.event';
 import { ReportsUpdatedEvent } from '../events/reportsupdated.event';
 import { ReportsDeletedEvent } from '../events/reportsdeleted.event';
-
+import { ReportDefinitionRegisteredEvent } from "../events/reportdefinitionregistered.event";
+import { ReportExecutionRequestedEvent } from "../events/reportexecutionrequested.event";
+import { ReportExecutionCompletedEvent } from "../events/reportexecutioncompleted.event";
+import { ReportExecutionFailedEvent } from "../events/reportexecutionfailed.event";
+import { ReportScheduleTriggeredEvent } from "../events/reportscheduletriggered.event";
 
 //Enfoque Event Sourcing
 import { CommandBus, EventBus } from '@nestjs/cqrs';
@@ -66,7 +70,7 @@ import { EventSourcingHelper } from '../shared/decorators/event-sourcing.helper'
 import { EventSourcingConfigOptions } from '../shared/decorators/event-sourcing.decorator';
 
 
-@EventsHandler(ReportsCreatedEvent, ReportsUpdatedEvent, ReportsDeletedEvent)
+@EventsHandler(ReportsCreatedEvent, ReportsUpdatedEvent, ReportsDeletedEvent, ReportDefinitionRegisteredEvent, ReportExecutionRequestedEvent, ReportExecutionCompletedEvent, ReportExecutionFailedEvent, ReportScheduleTriggeredEvent)
 @Injectable()
 export class ReportsCommandRepository implements IEventHandler<BaseEvent>{
 
@@ -158,7 +162,16 @@ export class ReportsCommandRepository implements IEventHandler<BaseEvent>{
         return await this.onReportsUpdated(event);
       case 'ReportsDeletedEvent':
         return await this.onReportsDeleted(event);
-
+      case 'ReportDefinitionRegisteredEvent':
+        return await this.onReportDefinitionRegistered(event);
+      case 'ReportExecutionRequestedEvent':
+        return await this.onReportExecutionRequested(event);
+      case 'ReportExecutionCompletedEvent':
+        return await this.onReportExecutionCompleted(event);
+      case 'ReportExecutionFailedEvent':
+        return await this.onReportExecutionFailed(event);
+      case 'ReportScheduleTriggeredEvent':
+        return await this.onReportScheduleTriggered(event);
     }
     return false;
   }
@@ -252,6 +265,75 @@ export class ReportsCommandRepository implements IEventHandler<BaseEvent>{
     return await this.repository.delete(event.aggregateId);
   }
 
+  private async onReportDefinitionRegistered(event: ReportDefinitionRegisteredEvent) {
+    logger.info('Ready to handle onReportDefinitionRegistered event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'reports'
+      } as Partial<Reports>);
+      return await this.repository.save(projectedEntity as Reports);
+    }
+    return true;
+  }
+
+  private async onReportExecutionRequested(event: ReportExecutionRequestedEvent) {
+    logger.info('Ready to handle onReportExecutionRequested event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'reports'
+      } as Partial<Reports>);
+      return await this.repository.save(projectedEntity as Reports);
+    }
+    return true;
+  }
+
+  private async onReportExecutionCompleted(event: ReportExecutionCompletedEvent) {
+    logger.info('Ready to handle onReportExecutionCompleted event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'reports'
+      } as Partial<Reports>);
+      return await this.repository.save(projectedEntity as Reports);
+    }
+    return true;
+  }
+
+  private async onReportExecutionFailed(event: ReportExecutionFailedEvent) {
+    logger.info('Ready to handle onReportExecutionFailed event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'reports'
+      } as Partial<Reports>);
+      return await this.repository.save(projectedEntity as Reports);
+    }
+    return true;
+  }
+
+  private async onReportScheduleTriggered(event: ReportScheduleTriggeredEvent) {
+    logger.info('Ready to handle onReportScheduleTriggered event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'reports'
+      } as Partial<Reports>);
+      return await this.repository.save(projectedEntity as Reports);
+    }
+    return true;
+  }
 
 
   // ----------------------------

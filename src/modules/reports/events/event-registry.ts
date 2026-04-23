@@ -33,6 +33,11 @@ import { BaseEvent } from './base.event';
 import { ReportsCreatedEvent } from './reportscreated.event';
 import { ReportsUpdatedEvent } from './reportsupdated.event';
 import { ReportsDeletedEvent } from './reportsdeleted.event';
+import { ReportDefinitionRegisteredEvent } from './reportdefinitionregistered.event';
+import { ReportExecutionRequestedEvent } from './reportexecutionrequested.event';
+import { ReportExecutionCompletedEvent } from './reportexecutioncompleted.event';
+import { ReportExecutionFailedEvent } from './reportexecutionfailed.event';
+import { ReportScheduleTriggeredEvent } from './reportscheduletriggered.event';
 
 export type RegisteredEventClass<T extends BaseEvent = BaseEvent> = new (
   aggregateId: string,
@@ -97,7 +102,11 @@ export const EVENT_DEFINITIONS: Record<string, RegisteredEventDefinition> = {
   'reports-created': createEventDefinition('reports-created', ReportsCreatedEvent, EVENT_DEFINITION_OVERRIDES['reports-created']),
   'reports-updated': createEventDefinition('reports-updated', ReportsUpdatedEvent, EVENT_DEFINITION_OVERRIDES['reports-updated']),
   'reports-deleted': createEventDefinition('reports-deleted', ReportsDeletedEvent, EVENT_DEFINITION_OVERRIDES['reports-deleted']),
-
+  'report-definition-registered': createEventDefinition('report-definition-registered', ReportDefinitionRegisteredEvent, EVENT_DEFINITION_OVERRIDES['report-definition-registered']),
+  'report-execution-requested': createEventDefinition('report-execution-requested', ReportExecutionRequestedEvent, EVENT_DEFINITION_OVERRIDES['report-execution-requested']),
+  'report-execution-completed': createEventDefinition('report-execution-completed', ReportExecutionCompletedEvent, EVENT_DEFINITION_OVERRIDES['report-execution-completed']),
+  'report-execution-failed': createEventDefinition('report-execution-failed', ReportExecutionFailedEvent, EVENT_DEFINITION_OVERRIDES['report-execution-failed']),
+  'report-schedule-triggered': createEventDefinition('report-schedule-triggered', ReportScheduleTriggeredEvent, EVENT_DEFINITION_OVERRIDES['report-schedule-triggered']),
 };
 
 export const EVENT_REGISTRY: Record<string, RegisteredEventClass> = Object.fromEntries(

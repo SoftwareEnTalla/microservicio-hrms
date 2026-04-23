@@ -51,7 +51,11 @@ import { KafkaEventPublisher } from "../shared/adapters/kafka-event-publisher";
 import { ModuleRef } from "@nestjs/core";
 import { ReportsQueryService } from "./reportsquery.service";
 import { BaseEvent } from "../events/base.event";
-
+import { ReportDefinitionRegisteredEvent } from '../events/reportdefinitionregistered.event';
+import { ReportExecutionRequestedEvent } from '../events/reportexecutionrequested.event';
+import { ReportExecutionCompletedEvent } from '../events/reportexecutioncompleted.event';
+import { ReportExecutionFailedEvent } from '../events/reportexecutionfailed.event';
+import { ReportScheduleTriggeredEvent } from '../events/reportscheduletriggered.event';
 
 @Injectable()
 export class ReportsCommandService implements OnModuleInit {

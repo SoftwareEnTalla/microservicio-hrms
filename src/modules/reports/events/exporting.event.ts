@@ -30,7 +30,11 @@
 export * from "./reportsdeleted.event"; 
 export * from "./reportscreated.event";
 export * from "./reportsupdated.event";
-
+export * from "./reportdefinitionregistered.event";
+export * from "./reportexecutionrequested.event";
+export * from "./reportexecutioncompleted.event";
+export * from "./reportexecutionfailed.event";
+export * from "./reportscheduletriggered.event";
 export * from "./event-registry";
 export * from "./base.event";
 export * from "./reports-failed.event";
