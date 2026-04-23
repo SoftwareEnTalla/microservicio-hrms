@@ -30,7 +30,7 @@
 export * from "./configurationparameterdeleted.event"; 
 export * from "./configurationparametercreated.event";
 export * from "./configurationparameterupdated.event";
-
+export * from "./configurationparameterdeactivated.event";
 export * from "./event-registry";
 export * from "./base.event";
 export * from "./configurationparameter-failed.event";

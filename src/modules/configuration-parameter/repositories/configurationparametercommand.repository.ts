@@ -53,7 +53,7 @@ import { IEventHandler, EventsHandler } from '@nestjs/cqrs';
 import { ConfigurationParameterCreatedEvent } from '../events/configurationparametercreated.event';
 import { ConfigurationParameterUpdatedEvent } from '../events/configurationparameterupdated.event';
 import { ConfigurationParameterDeletedEvent } from '../events/configurationparameterdeleted.event';
-
+import { ConfigurationParameterDeactivatedEvent } from "../events/configurationparameterdeactivated.event";
 
 //Enfoque Event Sourcing
 import { CommandBus, EventBus } from '@nestjs/cqrs';
@@ -66,7 +66,7 @@ import { EventSourcingHelper } from '../shared/decorators/event-sourcing.helper'
 import { EventSourcingConfigOptions } from '../shared/decorators/event-sourcing.decorator';
 
 
-@EventsHandler(ConfigurationParameterCreatedEvent, ConfigurationParameterUpdatedEvent, ConfigurationParameterDeletedEvent)
+@EventsHandler(ConfigurationParameterCreatedEvent, ConfigurationParameterUpdatedEvent, ConfigurationParameterDeletedEvent, ConfigurationParameterDeactivatedEvent)
 @Injectable()
 export class ConfigurationParameterCommandRepository implements IEventHandler<BaseEvent>{
 
@@ -158,7 +158,8 @@ export class ConfigurationParameterCommandRepository implements IEventHandler<Ba
         return await this.onConfigurationParameterUpdated(event);
       case 'ConfigurationParameterDeletedEvent':
         return await this.onConfigurationParameterDeleted(event);
-
+      case 'ConfigurationParameterDeactivatedEvent':
+        return await this.onConfigurationParameterDeactivated(event);
     }
     return false;
   }
@@ -252,6 +253,19 @@ export class ConfigurationParameterCommandRepository implements IEventHandler<Ba
     return await this.repository.delete(event.aggregateId);
   }
 
+  private async onConfigurationParameterDeactivated(event: ConfigurationParameterDeactivatedEvent) {
+    logger.info('Ready to handle onConfigurationParameterDeactivated event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'configuration-parameter'
+      } as Partial<ConfigurationParameter>);
+      return await this.repository.save(projectedEntity as ConfigurationParameter);
+    }
+    return true;
+  }
 
 
   // ----------------------------

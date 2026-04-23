@@ -51,7 +51,7 @@ import { KafkaEventPublisher } from "../shared/adapters/kafka-event-publisher";
 import { ModuleRef } from "@nestjs/core";
 import { ConfigurationParameterQueryService } from "./configurationparameterquery.service";
 import { BaseEvent } from "../events/base.event";
-
+import { ConfigurationParameterDeactivatedEvent } from '../events/configurationparameterdeactivated.event';
 
 @Injectable()
 export class ConfigurationParameterCommandService implements OnModuleInit {

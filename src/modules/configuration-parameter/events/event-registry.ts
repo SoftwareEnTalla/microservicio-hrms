@@ -33,6 +33,7 @@ import { BaseEvent } from './base.event';
 import { ConfigurationParameterCreatedEvent } from './configurationparametercreated.event';
 import { ConfigurationParameterUpdatedEvent } from './configurationparameterupdated.event';
 import { ConfigurationParameterDeletedEvent } from './configurationparameterdeleted.event';
+import { ConfigurationParameterDeactivatedEvent } from './configurationparameterdeactivated.event';
 
 export type RegisteredEventClass<T extends BaseEvent = BaseEvent> = new (
   aggregateId: string,
@@ -87,7 +88,7 @@ export const EVENT_DEFINITIONS: Record<string, RegisteredEventDefinition> = {
   'configuration-parameter-created': createEventDefinition('configuration-parameter-created', ConfigurationParameterCreatedEvent, EVENT_DEFINITION_OVERRIDES['configuration-parameter-created']),
   'configuration-parameter-updated': createEventDefinition('configuration-parameter-updated', ConfigurationParameterUpdatedEvent, EVENT_DEFINITION_OVERRIDES['configuration-parameter-updated']),
   'configuration-parameter-deleted': createEventDefinition('configuration-parameter-deleted', ConfigurationParameterDeletedEvent, EVENT_DEFINITION_OVERRIDES['configuration-parameter-deleted']),
-
+  'configuration-parameter-deactivated': createEventDefinition('configuration-parameter-deactivated', ConfigurationParameterDeactivatedEvent, EVENT_DEFINITION_OVERRIDES['configuration-parameter-deactivated']),
 };
 
 export const EVENT_REGISTRY: Record<string, RegisteredEventClass> = Object.fromEntries(

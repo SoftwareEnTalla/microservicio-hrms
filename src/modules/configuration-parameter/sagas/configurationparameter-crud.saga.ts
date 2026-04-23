@@ -36,7 +36,7 @@ import {
   ConfigurationParameterCreatedEvent,
   ConfigurationParameterUpdatedEvent,
   ConfigurationParameterDeletedEvent,
-
+  ConfigurationParameterDeactivatedEvent,
 } from '../events/exporting.event';
 import {
   SagaConfigurationParameterFailedEvent
@@ -100,6 +100,16 @@ export class ConfigurationParameterCrudSaga {
     );
   };
 
+  @Saga()
+  onConfigurationParameterDeactivated = ($events: Observable<ConfigurationParameterDeactivatedEvent>) => {
+    return $events.pipe(
+      ofType(ConfigurationParameterDeactivatedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio ConfigurationParameterDeactivated: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
 
   @LogExecutionTime({
     layer: 'saga',
