@@ -53,7 +53,12 @@ import { IEventHandler, EventsHandler } from '@nestjs/cqrs';
 import { PayrollCreatedEvent } from '../events/payrollcreated.event';
 import { PayrollUpdatedEvent } from '../events/payrollupdated.event';
 import { PayrollDeletedEvent } from '../events/payrolldeleted.event';
-
+import { PayrollCycleCreatedEvent } from "../events/payrollcyclecreated.event";
+import { PayrollCycleCalculatedEvent } from "../events/payrollcyclecalculated.event";
+import { PayrollApprovedEvent } from "../events/payrollapproved.event";
+import { PayrollPaidEvent } from "../events/payrollpaid.event";
+import { PayrollCycleClosedEvent } from "../events/payrollcycleclosed.event";
+import { PayrollCycleReopenedEvent } from "../events/payrollcyclereopened.event";
 
 //Enfoque Event Sourcing
 import { CommandBus, EventBus } from '@nestjs/cqrs';
@@ -66,7 +71,7 @@ import { EventSourcingHelper } from '../shared/decorators/event-sourcing.helper'
 import { EventSourcingConfigOptions } from '../shared/decorators/event-sourcing.decorator';
 
 
-@EventsHandler(PayrollCreatedEvent, PayrollUpdatedEvent, PayrollDeletedEvent)
+@EventsHandler(PayrollCreatedEvent, PayrollUpdatedEvent, PayrollDeletedEvent, PayrollCycleCreatedEvent, PayrollCycleCalculatedEvent, PayrollApprovedEvent, PayrollPaidEvent, PayrollCycleClosedEvent, PayrollCycleReopenedEvent)
 @Injectable()
 export class PayrollCommandRepository implements IEventHandler<BaseEvent>{
 
@@ -158,7 +163,18 @@ export class PayrollCommandRepository implements IEventHandler<BaseEvent>{
         return await this.onPayrollUpdated(event);
       case 'PayrollDeletedEvent':
         return await this.onPayrollDeleted(event);
-
+      case 'PayrollCycleCreatedEvent':
+        return await this.onPayrollCycleCreated(event);
+      case 'PayrollCycleCalculatedEvent':
+        return await this.onPayrollCycleCalculated(event);
+      case 'PayrollApprovedEvent':
+        return await this.onPayrollApproved(event);
+      case 'PayrollPaidEvent':
+        return await this.onPayrollPaid(event);
+      case 'PayrollCycleClosedEvent':
+        return await this.onPayrollCycleClosed(event);
+      case 'PayrollCycleReopenedEvent':
+        return await this.onPayrollCycleReopened(event);
     }
     return false;
   }
@@ -252,6 +268,89 @@ export class PayrollCommandRepository implements IEventHandler<BaseEvent>{
     return await this.repository.delete(event.aggregateId);
   }
 
+  private async onPayrollCycleCreated(event: PayrollCycleCreatedEvent) {
+    logger.info('Ready to handle onPayrollCycleCreated event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'payroll'
+      } as Partial<Payroll>);
+      return await this.repository.save(projectedEntity as Payroll);
+    }
+    return true;
+  }
+
+  private async onPayrollCycleCalculated(event: PayrollCycleCalculatedEvent) {
+    logger.info('Ready to handle onPayrollCycleCalculated event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'payroll'
+      } as Partial<Payroll>);
+      return await this.repository.save(projectedEntity as Payroll);
+    }
+    return true;
+  }
+
+  private async onPayrollApproved(event: PayrollApprovedEvent) {
+    logger.info('Ready to handle onPayrollApproved event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'payroll'
+      } as Partial<Payroll>);
+      return await this.repository.save(projectedEntity as Payroll);
+    }
+    return true;
+  }
+
+  private async onPayrollPaid(event: PayrollPaidEvent) {
+    logger.info('Ready to handle onPayrollPaid event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'payroll'
+      } as Partial<Payroll>);
+      return await this.repository.save(projectedEntity as Payroll);
+    }
+    return true;
+  }
+
+  private async onPayrollCycleClosed(event: PayrollCycleClosedEvent) {
+    logger.info('Ready to handle onPayrollCycleClosed event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'payroll'
+      } as Partial<Payroll>);
+      return await this.repository.save(projectedEntity as Payroll);
+    }
+    return true;
+  }
+
+  private async onPayrollCycleReopened(event: PayrollCycleReopenedEvent) {
+    logger.info('Ready to handle onPayrollCycleReopened event on repository:', event);
+    const payloadInstance = (event as any).payload?.instance;
+    if (payloadInstance) {
+      const projectedEntity = this.repository.create({
+        ...(payloadInstance as any),
+        id: event.aggregateId,
+        type: 'payroll'
+      } as Partial<Payroll>);
+      return await this.repository.save(projectedEntity as Payroll);
+    }
+    return true;
+  }
 
 
   // ----------------------------

@@ -51,7 +51,12 @@ import { KafkaEventPublisher } from "../shared/adapters/kafka-event-publisher";
 import { ModuleRef } from "@nestjs/core";
 import { PayrollQueryService } from "./payrollquery.service";
 import { BaseEvent } from "../events/base.event";
-
+import { PayrollCycleCreatedEvent } from '../events/payrollcyclecreated.event';
+import { PayrollCycleCalculatedEvent } from '../events/payrollcyclecalculated.event';
+import { PayrollApprovedEvent } from '../events/payrollapproved.event';
+import { PayrollPaidEvent } from '../events/payrollpaid.event';
+import { PayrollCycleClosedEvent } from '../events/payrollcycleclosed.event';
+import { PayrollCycleReopenedEvent } from '../events/payrollcyclereopened.event';
 
 @Injectable()
 export class PayrollCommandService implements OnModuleInit {

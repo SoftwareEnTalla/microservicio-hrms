@@ -36,7 +36,12 @@ import {
   PayrollCreatedEvent,
   PayrollUpdatedEvent,
   PayrollDeletedEvent,
-
+  PayrollCycleCreatedEvent,
+  PayrollCycleCalculatedEvent,
+  PayrollApprovedEvent,
+  PayrollPaidEvent,
+  PayrollCycleClosedEvent,
+  PayrollCycleReopenedEvent,
 } from '../events/exporting.event';
 import {
   SagaPayrollFailedEvent
@@ -100,6 +105,71 @@ export class PayrollCrudSaga {
     );
   };
 
+  @Saga()
+  onPayrollCycleCreated = ($events: Observable<PayrollCycleCreatedEvent>) => {
+    return $events.pipe(
+      ofType(PayrollCycleCreatedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio PayrollCycleCreated: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onPayrollCycleCalculated = ($events: Observable<PayrollCycleCalculatedEvent>) => {
+    return $events.pipe(
+      ofType(PayrollCycleCalculatedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio PayrollCycleCalculated: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onPayrollApproved = ($events: Observable<PayrollApprovedEvent>) => {
+    return $events.pipe(
+      ofType(PayrollApprovedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio PayrollApproved: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onPayrollPaid = ($events: Observable<PayrollPaidEvent>) => {
+    return $events.pipe(
+      ofType(PayrollPaidEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio PayrollPaid: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onPayrollCycleClosed = ($events: Observable<PayrollCycleClosedEvent>) => {
+    return $events.pipe(
+      ofType(PayrollCycleClosedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio PayrollCycleClosed: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
+
+  @Saga()
+  onPayrollCycleReopened = ($events: Observable<PayrollCycleReopenedEvent>) => {
+    return $events.pipe(
+      ofType(PayrollCycleReopenedEvent),
+      tap(event => {
+        this.logger.log(`Saga iniciada para evento de dominio PayrollCycleReopened: ${event.aggregateId}`);
+      }),
+      map(() => null)
+    );
+  };
 
   @LogExecutionTime({
     layer: 'saga',

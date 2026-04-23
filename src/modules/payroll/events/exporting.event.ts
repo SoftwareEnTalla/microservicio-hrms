@@ -30,7 +30,12 @@
 export * from "./payrolldeleted.event"; 
 export * from "./payrollcreated.event";
 export * from "./payrollupdated.event";
-
+export * from "./payrollcyclecreated.event";
+export * from "./payrollcyclecalculated.event";
+export * from "./payrollapproved.event";
+export * from "./payrollpaid.event";
+export * from "./payrollcycleclosed.event";
+export * from "./payrollcyclereopened.event";
 export * from "./event-registry";
 export * from "./base.event";
 export * from "./payroll-failed.event";

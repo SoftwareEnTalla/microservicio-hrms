@@ -33,6 +33,12 @@ import { BaseEvent } from './base.event';
 import { PayrollCreatedEvent } from './payrollcreated.event';
 import { PayrollUpdatedEvent } from './payrollupdated.event';
 import { PayrollDeletedEvent } from './payrolldeleted.event';
+import { PayrollCycleCreatedEvent } from './payrollcyclecreated.event';
+import { PayrollCycleCalculatedEvent } from './payrollcyclecalculated.event';
+import { PayrollApprovedEvent } from './payrollapproved.event';
+import { PayrollPaidEvent } from './payrollpaid.event';
+import { PayrollCycleClosedEvent } from './payrollcycleclosed.event';
+import { PayrollCycleReopenedEvent } from './payrollcyclereopened.event';
 
 export type RegisteredEventClass<T extends BaseEvent = BaseEvent> = new (
   aggregateId: string,
@@ -102,7 +108,12 @@ export const EVENT_DEFINITIONS: Record<string, RegisteredEventDefinition> = {
   'payroll-created': createEventDefinition('payroll-created', PayrollCreatedEvent, EVENT_DEFINITION_OVERRIDES['payroll-created']),
   'payroll-updated': createEventDefinition('payroll-updated', PayrollUpdatedEvent, EVENT_DEFINITION_OVERRIDES['payroll-updated']),
   'payroll-deleted': createEventDefinition('payroll-deleted', PayrollDeletedEvent, EVENT_DEFINITION_OVERRIDES['payroll-deleted']),
-
+  'payroll-cycle-created': createEventDefinition('payroll-cycle-created', PayrollCycleCreatedEvent, EVENT_DEFINITION_OVERRIDES['payroll-cycle-created']),
+  'payroll-cycle-calculated': createEventDefinition('payroll-cycle-calculated', PayrollCycleCalculatedEvent, EVENT_DEFINITION_OVERRIDES['payroll-cycle-calculated']),
+  'payroll-approved': createEventDefinition('payroll-approved', PayrollApprovedEvent, EVENT_DEFINITION_OVERRIDES['payroll-approved']),
+  'payroll-paid': createEventDefinition('payroll-paid', PayrollPaidEvent, EVENT_DEFINITION_OVERRIDES['payroll-paid']),
+  'payroll-cycle-closed': createEventDefinition('payroll-cycle-closed', PayrollCycleClosedEvent, EVENT_DEFINITION_OVERRIDES['payroll-cycle-closed']),
+  'payroll-cycle-reopened': createEventDefinition('payroll-cycle-reopened', PayrollCycleReopenedEvent, EVENT_DEFINITION_OVERRIDES['payroll-cycle-reopened']),
 };
 
 export const EVENT_REGISTRY: Record<string, RegisteredEventClass> = Object.fromEntries(
