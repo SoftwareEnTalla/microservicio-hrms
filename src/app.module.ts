@@ -103,6 +103,30 @@ import LoggerService, { logger } from "@core/logs/logger";
 
 */
 
+import { HorizontalModule } from "@common/horizontal";
+
+import { NomencladorListenersModule } from './modules/nomenclador-listeners/nomenclador-listeners.module';
+import { AccessCredentialTypeModule } from "./modules/access-credential-type/modules/accesscredentialtype.module";
+import { AccessLevelModule } from "./modules/access-level/modules/accesslevel.module";
+import { AttendanceChannelModule } from "./modules/attendance-channel/modules/attendancechannel.module";
+import { AttendanceStatusModule } from "./modules/attendance-status/modules/attendancestatus.module";
+import { ConfigurationParameterScopeModule } from "./modules/configuration-parameter-scope/modules/configurationparameterscope.module";
+import { ContractTypeModule } from "./modules/contract-type/modules/contracttype.module";
+import { CredentialStatusModule } from "./modules/credential-status/modules/credentialstatus.module";
+import { EmploymentStatusModule } from "./modules/employment-status/modules/employmentstatus.module";
+import { GenderModule } from "./modules/gender/modules/gender.module";
+import { HrmsPermissionsSourceModule } from "./modules/hrms-permissions-source/modules/hrmspermissionssource.module";
+import { LastAccessOutcomeModule } from "./modules/last-access-outcome/modules/lastaccessoutcome.module";
+import { LeaveRequestStatusModule } from "./modules/leave-request-status/modules/leaverequeststatus.module";
+import { LeaveTypeModule } from "./modules/leave-type/modules/leavetype.module";
+import { PayrollCycleStatusModule } from "./modules/payroll-cycle-status/modules/payrollcyclestatus.module";
+import { PayrollFrequencyModule } from "./modules/payroll-frequency/modules/payrollfrequency.module";
+import { PersonAttributeScopeModule } from "./modules/person-attribute-scope/modules/personattributescope.module";
+import { PersonStatusModule } from "./modules/person-status/modules/personstatus.module";
+import { ReportsCategoryModule } from "./modules/reports-category/modules/reportscategory.module";
+import { ScopeTypeModule } from "./modules/scope-type/modules/scopetype.module";
+import { TimeEntryTypeModule } from "./modules/time-entry-type/modules/timeentrytype.module";
+import { TrainingModalityModule } from "./modules/training-modality/modules/trainingmodality.module";
 @Module({
   imports: [
     // Se importa/registra el módulo de caché
@@ -151,6 +175,7 @@ import LoggerService, { logger } from "@core/logs/logger";
      * Módulos Hrms de la aplicación
      */
     CqrsModule,
+    HorizontalModule,
     HrmsModule,
         AccessControlModule,
     AttendanceModule,
@@ -184,6 +209,29 @@ import LoggerService, { logger } from "@core/logs/logger";
           }),
         ]
       : []),
+  
+    NomencladorListenersModule,
+      AccessCredentialTypeModule,
+    AccessLevelModule,
+    AttendanceChannelModule,
+    AttendanceStatusModule,
+    ConfigurationParameterScopeModule,
+    ContractTypeModule,
+    CredentialStatusModule,
+    EmploymentStatusModule,
+    GenderModule,
+    HrmsPermissionsSourceModule,
+    LastAccessOutcomeModule,
+    LeaveRequestStatusModule,
+    LeaveTypeModule,
+    PayrollCycleStatusModule,
+    PayrollFrequencyModule,
+    PersonAttributeScopeModule,
+    PersonStatusModule,
+    ReportsCategoryModule,
+    ScopeTypeModule,
+    TimeEntryTypeModule,
+    TrainingModalityModule,
   ],
 
   /**

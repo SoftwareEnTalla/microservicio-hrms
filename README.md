@@ -385,3 +385,23 @@
 | | |____types
 |____utils
 ```
+
+<!-- nomencladores-propios:start -->
+
+## Nomencladores propios
+
+Este microservicio mantiene localmente los siguientes nomencladores (regla §4.9.6 de `docs/help.md` — entidad XML independiente con CRUD CQRS, FK desde agregados padres, seed SQL local idempotente).
+
+| Nomenclador | Modelo DSL | Seed SQL |
+|---|---|---|
+| `employment-status` | [../models/hrms/employment-status.xml](../models/hrms/employment-status.xml) | [./src/database/postgres-2-employment-status.sql](./src/database/postgres-2-employment-status.sql) |
+| `leave-type` | [../models/hrms/leave-type.xml](../models/hrms/leave-type.xml) | [./src/database/postgres-3-leave-type.sql](./src/database/postgres-3-leave-type.sql) |
+| `leave-request-status` | [../models/hrms/leave-request-status.xml](../models/hrms/leave-request-status.xml) | [./src/database/postgres-4-leave-request-status.sql](./src/database/postgres-4-leave-request-status.sql) |
+| `time-entry-type` | [../models/hrms/time-entry-type.xml](../models/hrms/time-entry-type.xml) | [./src/database/postgres-5-time-entry-type.sql](./src/database/postgres-5-time-entry-type.sql) |
+| `access-credential-type` | [../models/hrms/access-credential-type.xml](../models/hrms/access-credential-type.xml) | [./src/database/postgres-6-access-credential-type.sql](./src/database/postgres-6-access-credential-type.sql) |
+| `credential-status` | [../models/hrms/credential-status.xml](../models/hrms/credential-status.xml) | [./src/database/postgres-7-credential-status.sql](./src/database/postgres-7-credential-status.sql) |
+| `payroll-cycle-status` | [../models/hrms/payroll-cycle-status.xml](../models/hrms/payroll-cycle-status.xml) | [./src/database/postgres-8-payroll-cycle-status.sql](./src/database/postgres-8-payroll-cycle-status.sql) |
+
+Estos nomencladores se siembran automáticamente en cada arranque (`init-order.txt`). Si más adelante un segundo microservicio empieza a consumir alguno, se promueve a `catalog-service` según la regla.
+
+<!-- nomencladores-propios:end -->
