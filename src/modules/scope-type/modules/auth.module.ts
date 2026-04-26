@@ -30,13 +30,11 @@
 
 
 import { Module } from "@nestjs/common";
-import { ScopeTypeCommandController } from "../controllers/scopetypecommand.controller";
 import { ScopeTypeLoggingInterceptor } from "../interceptors/scopetype.logging.interceptor";
 import { CommandBus, EventBus, UnhandledExceptionBus } from "@nestjs/cqrs";
 import { ScopeTypeAuthGuard } from "../guards/scopetypeauthguard.guard";
 
 @Module({
-  controllers: [ScopeTypeCommandController],
   providers: [
     ScopeTypeAuthGuard,
     ScopeTypeLoggingInterceptor,

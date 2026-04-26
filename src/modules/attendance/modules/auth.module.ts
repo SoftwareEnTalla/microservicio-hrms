@@ -30,13 +30,11 @@
 
 
 import { Module } from "@nestjs/common";
-import { AttendanceCommandController } from "../controllers/attendancecommand.controller";
 import { AttendanceLoggingInterceptor } from "../interceptors/attendance.logging.interceptor";
 import { CommandBus, EventBus, UnhandledExceptionBus } from "@nestjs/cqrs";
 import { AttendanceAuthGuard } from "../guards/attendanceauthguard.guard";
 
 @Module({
-  controllers: [AttendanceCommandController],
   providers: [
     AttendanceAuthGuard,
     AttendanceLoggingInterceptor,

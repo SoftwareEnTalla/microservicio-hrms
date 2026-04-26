@@ -30,13 +30,11 @@
 
 
 import { Module } from "@nestjs/common";
-import { AccessCredentialTypeCommandController } from "../controllers/accesscredentialtypecommand.controller";
 import { AccessCredentialTypeLoggingInterceptor } from "../interceptors/accesscredentialtype.logging.interceptor";
 import { CommandBus, EventBus, UnhandledExceptionBus } from "@nestjs/cqrs";
 import { AccessCredentialTypeAuthGuard } from "../guards/accesscredentialtypeauthguard.guard";
 
 @Module({
-  controllers: [AccessCredentialTypeCommandController],
   providers: [
     AccessCredentialTypeAuthGuard,
     AccessCredentialTypeLoggingInterceptor,

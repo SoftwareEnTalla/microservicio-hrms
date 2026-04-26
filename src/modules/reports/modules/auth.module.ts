@@ -30,13 +30,11 @@
 
 
 import { Module } from "@nestjs/common";
-import { ReportsCommandController } from "../controllers/reportscommand.controller";
 import { ReportsLoggingInterceptor } from "../interceptors/reports.logging.interceptor";
 import { CommandBus, EventBus, UnhandledExceptionBus } from "@nestjs/cqrs";
 import { ReportsAuthGuard } from "../guards/reportsauthguard.guard";
 
 @Module({
-  controllers: [ReportsCommandController],
   providers: [
     ReportsAuthGuard,
     ReportsLoggingInterceptor,

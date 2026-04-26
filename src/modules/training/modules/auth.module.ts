@@ -30,13 +30,11 @@
 
 
 import { Module } from "@nestjs/common";
-import { TrainingCommandController } from "../controllers/trainingcommand.controller";
 import { TrainingLoggingInterceptor } from "../interceptors/training.logging.interceptor";
 import { CommandBus, EventBus, UnhandledExceptionBus } from "@nestjs/cqrs";
 import { TrainingAuthGuard } from "../guards/trainingauthguard.guard";
 
 @Module({
-  controllers: [TrainingCommandController],
   providers: [
     TrainingAuthGuard,
     TrainingLoggingInterceptor,

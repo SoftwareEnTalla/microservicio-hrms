@@ -30,13 +30,11 @@
 
 
 import { Module } from "@nestjs/common";
-import { TimeEntryTypeCommandController } from "../controllers/timeentrytypecommand.controller";
 import { TimeEntryTypeLoggingInterceptor } from "../interceptors/timeentrytype.logging.interceptor";
 import { CommandBus, EventBus, UnhandledExceptionBus } from "@nestjs/cqrs";
 import { TimeEntryTypeAuthGuard } from "../guards/timeentrytypeauthguard.guard";
 
 @Module({
-  controllers: [TimeEntryTypeCommandController],
   providers: [
     TimeEntryTypeAuthGuard,
     TimeEntryTypeLoggingInterceptor,

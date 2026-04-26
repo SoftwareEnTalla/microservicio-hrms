@@ -30,13 +30,11 @@
 
 
 import { Module } from "@nestjs/common";
-import { HrmsPermissionsSourceCommandController } from "../controllers/hrmspermissionssourcecommand.controller";
 import { HrmsPermissionsSourceLoggingInterceptor } from "../interceptors/hrmspermissionssource.logging.interceptor";
 import { CommandBus, EventBus, UnhandledExceptionBus } from "@nestjs/cqrs";
 import { HrmsPermissionsSourceAuthGuard } from "../guards/hrmspermissionssourceauthguard.guard";
 
 @Module({
-  controllers: [HrmsPermissionsSourceCommandController],
   providers: [
     HrmsPermissionsSourceAuthGuard,
     HrmsPermissionsSourceLoggingInterceptor,

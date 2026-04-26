@@ -30,13 +30,11 @@
 
 
 import { Module } from "@nestjs/common";
-import { ConfigurationParameterCommandController } from "../controllers/configurationparametercommand.controller";
 import { ConfigurationParameterLoggingInterceptor } from "../interceptors/configurationparameter.logging.interceptor";
 import { CommandBus, EventBus, UnhandledExceptionBus } from "@nestjs/cqrs";
 import { ConfigurationParameterAuthGuard } from "../guards/configurationparameterauthguard.guard";
 
 @Module({
-  controllers: [ConfigurationParameterCommandController],
   providers: [
     ConfigurationParameterAuthGuard,
     ConfigurationParameterLoggingInterceptor,

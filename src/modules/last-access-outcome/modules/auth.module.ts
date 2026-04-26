@@ -30,13 +30,11 @@
 
 
 import { Module } from "@nestjs/common";
-import { LastAccessOutcomeCommandController } from "../controllers/lastaccessoutcomecommand.controller";
 import { LastAccessOutcomeLoggingInterceptor } from "../interceptors/lastaccessoutcome.logging.interceptor";
 import { CommandBus, EventBus, UnhandledExceptionBus } from "@nestjs/cqrs";
 import { LastAccessOutcomeAuthGuard } from "../guards/lastaccessoutcomeauthguard.guard";
 
 @Module({
-  controllers: [LastAccessOutcomeCommandController],
   providers: [
     LastAccessOutcomeAuthGuard,
     LastAccessOutcomeLoggingInterceptor,

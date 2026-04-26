@@ -30,13 +30,11 @@
 
 
 import { Module } from "@nestjs/common";
-import { EmployeeAttributeCommandController } from "../controllers/employeeattributecommand.controller";
 import { EmployeeAttributeLoggingInterceptor } from "../interceptors/employeeattribute.logging.interceptor";
 import { CommandBus, EventBus, UnhandledExceptionBus } from "@nestjs/cqrs";
 import { EmployeeAttributeAuthGuard } from "../guards/employeeattributeauthguard.guard";
 
 @Module({
-  controllers: [EmployeeAttributeCommandController],
   providers: [
     EmployeeAttributeAuthGuard,
     EmployeeAttributeLoggingInterceptor,

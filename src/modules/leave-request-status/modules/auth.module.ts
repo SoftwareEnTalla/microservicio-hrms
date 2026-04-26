@@ -30,13 +30,11 @@
 
 
 import { Module } from "@nestjs/common";
-import { LeaveRequestStatusCommandController } from "../controllers/leaverequeststatuscommand.controller";
 import { LeaveRequestStatusLoggingInterceptor } from "../interceptors/leaverequeststatus.logging.interceptor";
 import { CommandBus, EventBus, UnhandledExceptionBus } from "@nestjs/cqrs";
 import { LeaveRequestStatusAuthGuard } from "../guards/leaverequeststatusauthguard.guard";
 
 @Module({
-  controllers: [LeaveRequestStatusCommandController],
   providers: [
     LeaveRequestStatusAuthGuard,
     LeaveRequestStatusLoggingInterceptor,

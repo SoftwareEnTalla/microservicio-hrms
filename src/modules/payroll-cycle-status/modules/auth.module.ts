@@ -30,13 +30,11 @@
 
 
 import { Module } from "@nestjs/common";
-import { PayrollCycleStatusCommandController } from "../controllers/payrollcyclestatuscommand.controller";
 import { PayrollCycleStatusLoggingInterceptor } from "../interceptors/payrollcyclestatus.logging.interceptor";
 import { CommandBus, EventBus, UnhandledExceptionBus } from "@nestjs/cqrs";
 import { PayrollCycleStatusAuthGuard } from "../guards/payrollcyclestatusauthguard.guard";
 
 @Module({
-  controllers: [PayrollCycleStatusCommandController],
   providers: [
     PayrollCycleStatusAuthGuard,
     PayrollCycleStatusLoggingInterceptor,

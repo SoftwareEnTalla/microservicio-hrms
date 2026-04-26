@@ -30,13 +30,11 @@
 
 
 import { Module } from "@nestjs/common";
-import { GenderCommandController } from "../controllers/gendercommand.controller";
 import { GenderLoggingInterceptor } from "../interceptors/gender.logging.interceptor";
 import { CommandBus, EventBus, UnhandledExceptionBus } from "@nestjs/cqrs";
 import { GenderAuthGuard } from "../guards/genderauthguard.guard";
 
 @Module({
-  controllers: [GenderCommandController],
   providers: [
     GenderAuthGuard,
     GenderLoggingInterceptor,

@@ -30,13 +30,11 @@
 
 
 import { Module } from "@nestjs/common";
-import { EmployeeCommandController } from "../controllers/employeecommand.controller";
 import { EmployeeLoggingInterceptor } from "../interceptors/employee.logging.interceptor";
 import { CommandBus, EventBus, UnhandledExceptionBus } from "@nestjs/cqrs";
 import { EmployeeAuthGuard } from "../guards/employeeauthguard.guard";
 
 @Module({
-  controllers: [EmployeeCommandController],
   providers: [
     EmployeeAuthGuard,
     EmployeeLoggingInterceptor,

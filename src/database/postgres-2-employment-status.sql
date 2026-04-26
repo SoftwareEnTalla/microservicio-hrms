@@ -6,7 +6,7 @@
 -- la regla §4.9.6 de docs/help.md.
 -- Idempotente: INSERT ... ON CONFLICT (code) DO UPDATE.
 -- ════════════════════════════════════════════════════════════════════
-INSERT INTO "employment_status_base_entity" ("code", "displayName", "description", "metadata", "createdBy", "active", "type")
+INSERT INTO "employment_status_base_entity" ("code", "displayName", "description", "metadata", "createdBy", "isActive", "type")
 VALUES
   ('ONBOARDING', 'Onboarding', 'En proceso de incorporación', jsonb_build_object('description','En proceso de incorporación'), 'system', TRUE, 'employmentstatus'),
   ('ACTIVE', 'Activo', 'Empleado activo', jsonb_build_object('description','Empleado activo'), 'system', TRUE, 'employmentstatus'),
@@ -17,5 +17,5 @@ ON CONFLICT ("code") DO UPDATE SET
   "displayName"      = EXCLUDED."displayName",
   "description"      = EXCLUDED."description",
   "metadata"         = EXCLUDED."metadata",
-  "active"           = TRUE,
+  "isActive"           = TRUE,
   "modificationDate" = NOW();
